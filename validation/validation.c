@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/17 16:18:32 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/17 17:34:38 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "cub3d.h"
 
-
-# define WALL 1
-# define EMPTY_SPACE 0
-# define PLAYER N
-
-# include "libft.h"
-# include <unistd.h> // close() read()
-# include <stdlib.h> // open() malloc() exit()
-# include <fcntl.h> // open() flags
-# include <stdio.h> // perror()
-# include <string.h> // strerror()
-#include <sys/time.h> // gettimeofday()
-# include <../mlx/mlx.h>
-
-#endif
+int	validation(int argc, char **argv)
+{
+	if (argc > 2)
+	{
+		ft_putendl_fd("Error: Too many arguments", 2);
+		return (0);
+	}
+	return (1);
+}
