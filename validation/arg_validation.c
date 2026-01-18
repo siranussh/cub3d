@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   arg_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/18 13:58:55 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/18 12:43:52 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/18 12:44:14 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validation(int argc, char **argv)
+int	valid_path(char *path)
 {
-	if (argc > 2)
-		print_error("Error: Wrong Arguments.\nUsage: ./cub3D map.cub\n");
-	if (!valid_path(argv[1]))
-		print_error("Error: Invalid path.\n");
-	
+	char	*str;
 
+	if (!path)
+		return (0);
+	if (ft_strchr(path, ' '))
+		return (0);
+	str = ft_strrchr(path, '.');
+	if (!str || ft_strlen(str) > 4)
+		return (0);
+	if (ft_strncmp(str, ".cub", 4) != 0)
+		return (0);
 	return (1);
 }

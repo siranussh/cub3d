@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/17 16:18:32 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/18 13:57:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 
 # define WALL 1
 # define EMPTY_SPACE 0
-# define PLAYER N
+# define NORTH N
+# define EAST E
+# define WEST W
+# define SOUTH S
 
 # include "libft.h"
 # include <unistd.h> // close() read()
@@ -26,5 +29,15 @@
 # include <string.h> // strerror()
 #include <sys/time.h> // gettimeofday()
 # include <../mlx/mlx.h>
+
+// read_map.c
+
+
+// error.c
+void	print_error(char *str);
+
+// validation.c
+int		validation(int argc, char **argv);
+
 
 #endif
