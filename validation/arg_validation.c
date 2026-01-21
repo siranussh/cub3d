@@ -6,13 +6,13 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:43:52 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/18 12:44:14 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/21 18:30:28 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	valid_path(char *path)
+int	valid_path(char *path, char *domain)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ int	valid_path(char *path)
 	str = ft_strrchr(path, '.');
 	if (!str || ft_strlen(str) > 4)
 		return (0);
-	if (ft_strncmp(str, ".cub", 4) != 0)
+	if (ft_strncmp(str, domain, 4) != 0)
 		return (0);
 	return (1);
 }
