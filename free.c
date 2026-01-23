@@ -1,29 +1,46 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_validation.c                                   :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 12:43:52 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/23 12:25:44 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/23 12:49:22 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "../includes/cub3d.h"
+#include "includes/cub3d.h"
 
-int	valid_path(char *path, char *domain)
+void	ft_free(char **str)
 {
-	char	*str;
+	int	i;
 
-	if (!path)
-		return (0);
-	if (ft_strchr(path, ' '))
-		return (0);
-	str = ft_strrchr(path, '.');
-	if (!str || ft_strlen(str) > 4)
-		return (0);
-	if (ft_strncmp(str, domain, 4) != 0)
-		return (0);
-	return (1);
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+void	free_map(t_map *map)
+{
+	if (!map)
+		return ;
+	if (map->no_tx)
+		free(map->no_tx);
+	if (map->ea_tx)
+		free(map->ea_tx);
+	if (map->we_tx)
+		free(map->we_tx);
+	if (map->so_tx)
+		free(map->so_tx);
+	if (map->map)
+		ft_free(map->map);
+	if (map)
+		free(map);
 }

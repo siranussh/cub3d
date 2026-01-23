@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/21 18:32:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:44:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -16,10 +16,10 @@
 
 # define WALL 1
 # define EMPTY_SPACE 0
-# define NORTH N
-# define EAST E
-# define WEST W
-# define SOUTH S
+# define NORTH 'N'
+# define EAST 'E'
+# define WEST 'W'
+# define SOUTH 'S'
 
 # include "libft.h"
 # include <unistd.h> // close() read()
@@ -37,6 +37,9 @@ typedef struct s_map
 	char	*ea_tx;
 	char	*we_tx;
 	char	*so_tx;
+	int		floor_color;
+	int		ceiling_color;
+	char	**map;
 }	t_map;
 
 
@@ -47,7 +50,7 @@ char	*ft_strncpy(char *dest, char *src, int n);
 
 // textures_validation.c
 int		texture_path_len(char *str);
-char	*get_texture_path(char **map);
+char	*get_texture_path(t_map *m, char *map);
 int		if_tx_path_valid(char *path);
 
 
@@ -56,14 +59,23 @@ char	*get_map_lines(int fd);
 // void	parse_map(t_game *game, int fd, char *line);
 
 
-// error.c
-void	print_error(char *str);
-
 // arg_validation.c
 int		valid_path(char *path, char *domain);
 
 // validation.c
 int		validation(int argc, char **argv);
 
+
+/**************************************************/
+
+// init_structs.c
+t_map	*init_map(void);
+
+// free.c
+void	ft_free(char **str);
+void	free_map(t_map *map);
+
+// error_handler.c
+void	print_error(char *str);
 
 #endif

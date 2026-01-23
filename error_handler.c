@@ -1,29 +1,19 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_validation.c                                   :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 12:43:52 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/23 11:50:41 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/23 12:49:09 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "../includes/cub3d.h"
+#include "includes/cub3d.h"
 
-int	valid_path(char *path, char *domain)
+void	print_error(char *str)
 {
-	char	*str;
-
-	if (!path)
-		return (0);
-	if (ft_strchr(path, ' '))
-		return (0);
-	str = ft_strrchr(path, '.');
-	if (!str || ft_strlen(str) > 4)
-		return (0);
-	if (ft_strncmp(str, domain, 4) != 0)
-		return (0);
-	return (1);
+	ft_putstr_fd(str, 2);
+	exit(1);
 }

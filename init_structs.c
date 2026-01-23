@@ -1,29 +1,30 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_validation.c                                   :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 12:43:52 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/23 12:43:39 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/23 12:47:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "../includes/cub3d.h"
+#include "includes/cub3d.h"
 
-int	valid_path(char *path, char *domain)
+t_map	*init_map(void)
 {
-	char	*str;
+	t_map	*map;
 
-	if (!path)
-		return (0);
-	if (ft_strchr(path, ' '))
-		return (0);
-	str = ft_strrchr(path, '.');
-	if (!str || ft_strlen(str) > 4)
-		return (0);
-	if (ft_strncmp(str, domain, 4) != 0)
-		return (0);
-	return (1);
+	map = ft_calloc(1, sizeof(t_map));
+	if (!map)
+		print_error("Error: malloc failed/n");
+	map->no_tx = NULL;
+	map->ea_tx = NULL;
+	map->we_tx = NULL;
+	map->so_tx = NULL;
+	map->map = NULL;
+	map->floor_color = -1;
+	map->ceiling_color = -1;
+	return (map);
 }

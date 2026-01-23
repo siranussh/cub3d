@@ -1,16 +1,16 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:36:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/21 18:22:51 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
-#include "../cub3d.h"
+#include "../includes/cub3d.h"
 
 char	*get_map_lines(int fd)
 {
@@ -43,21 +43,19 @@ char	*get_map_lines(int fd)
 void	parse_map(t_map *m, int fd, char *line)
 {
 	char	**map;
-	char	**textures;
-	int		texture_len;
+	// char	**textures;
+	// int		texture_len;
 	int		i;
 
 	if (!line || !*line)
 	{
 		close(fd);
 		free(line);
-		// free(game);
 		print_error("Error: Map file is empty.\n");
 	}
 	if (*line == '\n')
 	{
 		close(fd);
-		// free(game);
 		print_error("Error: Invalid map format.\n");
 	}
 	map = ft_split(line, '\n');
@@ -70,25 +68,25 @@ void	parse_map(t_map *m, int fd, char *line)
 				i++;
 			if (ft_strcmp(map[i], "NO"))
 			{
-				m->no_tx = get_texture_path(map[i]);
+				m->no_tx = get_texture_path(m, map[i]);
 				if (!m->no_tx)
 					return ;
 			}
 			else if(ft_strcmp(map[i], "EA"))
 			{
-				m->ea_tx = get_texture_path(map[i]);
+				m->ea_tx = get_texture_path(m, map[i]);
 				if (!m->ea_tx)
 					return ;
 			}
 			else if (ft_strcmp(map[i], "WE"))
 			{
-				m->we_tx = get_texture_path(map[i]);
+				m->we_tx = get_texture_path(m, map[i]);
 				if (!m->we_tx)
 					return ;
 			}
 			else if(ft_strcmp(map[i], "SO"))
 			{
-				m->so_tx = get_texture_path(map[i]);
+				m->so_tx = get_texture_path(m, map[i]);
 				if (!m->so_tx)
 					return ;
 			}
@@ -100,7 +98,7 @@ void	parse_map(t_map *m, int fd, char *line)
 	{
 		close(fd);
 		free(line);
-		free_map(map);
+		// free_map(map);
 		// free(game);
 		print_error("Error: Invalid map format or malloc error.\n");
 	}
@@ -134,24 +132,24 @@ void	parse_map(t_map *m, int fd, char *line)
 // 	}
 // }
 
-char	**load_map(char *path)
-{
-	int		fd;
-	char	*line;
+// char	**load_map(char *path)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-	{
-		// free(game);
-		print_error("Error: Can't open file.\n");
-	}
-	line = get_map_lines(fd);
-	parse_map(fd, line);
-	// width = ft_strlen(game->map[0]);
-	// while (game->map[game->height])
-	// 	game->height++;
-	// validate_map(game, fd, line);
-	close(fd);
-	free(line);
-	return (game->map);
-}
+// 	fd = open(path, O_RDONLY);
+// 	if (fd < 0)
+// 	{
+// 		// free(game);
+// 		print_error("Error: Can't open file.\n");
+// 	}
+// 	line = get_map_lines(fd);
+// 	parse_map(fd, line);
+// 	// width = ft_strlen(game->map[0]);
+// 	// while (game->map[game->height])
+// 	// 	game->height++;
+// 	// validate_map(game, fd, line);
+// 	close(fd);
+// 	free(line);
+// 	return (game->map);
+// }

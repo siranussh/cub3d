@@ -1,16 +1,16 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   textures_validation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:09:06 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/21 18:33:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	texture_path_len(char *str)
 {
@@ -29,20 +29,20 @@ int	texture_path_len(char *str)
 	return (len);
 }
 
-char	*get_texture_path(char **map)
+char	*get_texture_path(t_map *m, char *map)
 {
 	char	*path;
-	int		textures_len;
+	int		texture_len;
 
 	if (!map || !*map)
 		return (NULL);
-	textures_len = 0;
-	while (ft_isspace(*map[i]) == 1)
-		map[i]++;
-	texture_len = texture_path_len(map[i]);
+	texture_len = 0;
+	while (ft_isspace(*map) == 1)
+		map++;
+	texture_len = texture_path_len(map);
 	if (texture_len == 0)
 		return (NULL);
-	path = ft_strncpy(map->no_tx, map[i], texture_len);
+	path = ft_strncpy(m->no_tx, map, texture_len);
 	if (!path)
 		return (NULL);
 	return (path);
@@ -50,12 +50,12 @@ char	*get_texture_path(char **map)
 
 int	if_tx_path_valid(char *path)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
+	// i = 0;
 	if (!path)
 		return (0);
-	if (path[0] != '.' && path[1] != "/")
+	if (path[0] != '.' && path[1] != '/')
 		return (0);
 	if (!valid_path(path, ".xpm"))
 		return (0);
@@ -66,25 +66,25 @@ void	init_tx_paths(t_map *m, char *line)
 {
 	if (ft_strcmp(line, "NO"))
 	{
-		m->no_tx = get_texture_path(line);
-		if (!m->no_tx || !if_tx_path_valid(m-))
+		m->no_tx = get_texture_path(m, line);
+		if (!m->no_tx || !if_tx_path_valid(m->no_tx))
 			return ;
 	}
 	else if(ft_strcmp(line, "EA"))
 	{
-		m->ea_tx = get_texture_path(line);
+		m->ea_tx = get_texture_path(m, line);
 		if (!m->ea_tx)
 			return ;
 	}
 	else if (ft_strcmp(line, "WE"))
 	{
-		m->we_tx = get_texture_path(line);
+		m->we_tx = get_texture_path(m, line);
 		if (!m->we_tx)
 			return ;
 	}
 	else if(ft_strcmp(line, "SO"))
 	{
-		m->so_tx = get_texture_path(line);
+		m->so_tx = get_texture_path(m, line);
 		if (!m->so_tx)
 			return ;
 	}
