@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 18:09:06 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:52:47 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,17 +19,17 @@ int	texture_path_len(char *str)
 
 	if (!str)
 		return (0);
+	len = 0;
 	i = 0;
-	while (str[i])
+	while (str[i] && !ft_isspace(str[i]))
 	{
-		if (ft_isspace(str[i]) == 0)
-			len++;
+		len++;
 		i++;
 	}
 	return (len);
 }
 
-char	*get_texture_path(t_map *m, char *map)
+char	*get_texture_path(char *map)
 {
 	char	*path;
 	int		texture_len;
@@ -42,7 +42,10 @@ char	*get_texture_path(t_map *m, char *map)
 	texture_len = texture_path_len(map);
 	if (texture_len == 0)
 		return (NULL);
-	path = ft_strncpy(m->no_tx, map, texture_len);
+	path = (char *)malloc(texture_len + 1);
+	if (!path)
+		return (NULL);
+	ft_strncpy(path, map, texture_len);
 	if (!path)
 		return (NULL);
 	return (path);
@@ -50,43 +53,46 @@ char	*get_texture_path(t_map *m, char *map)
 
 int	if_tx_path_valid(char *path)
 {
-	// int	i;
+	// int	fd;
 
-	// i = 0;
 	if (!path)
 		return (0);
 	if (path[0] != '.' && path[1] != '/')
 		return (0);
 	if (!valid_path(path, ".xpm"))
 		return (0);
+	// fd = open(path, O_RDONLY);
+	// if (fd < 0)
+	// 	return (0);
+	// close(fd);
 	return (1);
 }
 
-void	init_tx_paths(t_map *m, char *line)
-{
-	if (ft_strcmp(line, "NO"))
-	{
-		m->no_tx = get_texture_path(m, line);
-		if (!m->no_tx || !if_tx_path_valid(m->no_tx))
-			return ;
-	}
-	else if(ft_strcmp(line, "EA"))
-	{
-		m->ea_tx = get_texture_path(m, line);
-		if (!m->ea_tx)
-			return ;
-	}
-	else if (ft_strcmp(line, "WE"))
-	{
-		m->we_tx = get_texture_path(m, line);
-		if (!m->we_tx)
-			return ;
-	}
-	else if(ft_strcmp(line, "SO"))
-	{
-		m->so_tx = get_texture_path(m, line);
-		if (!m->so_tx)
-			return ;
-	}
-}
+// void	init_tx_paths(t_map *m, char *line)
+// {
+// 	if (ft_strcmp(line, "NO"))
+// 	{
+// 		m->no_tx = get_texture_path(m, line);
+// 		if (!m->no_tx || !if_tx_path_valid(m->no_tx))
+// 			return ;
+// 	}
+// 	else if(ft_strcmp(line, "EA"))
+// 	{
+// 		m->ea_tx = get_texture_path(m, line);
+// 		if (!m->ea_tx)
+// 			return ;
+// 	}
+// 	else if (ft_strcmp(line, "WE"))
+// 	{
+// 		m->we_tx = get_texture_path(m, line);
+// 		if (!m->we_tx)
+// 			return ;
+// 	}
+// 	else if(ft_strcmp(line, "SO"))
+// 	{
+// 		m->so_tx = get_texture_path(m, line);
+// 		if (!m->so_tx)
+// 			return ;
+// 	}
+// }
 

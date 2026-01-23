@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:50:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:30:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,10 +24,10 @@ int	validation(int argc, char **argv)
 		print_error("Error: Invalid path.\n");
 	// init map structure
 	map = init_map();
-	(void)map;
 	fd = open(argv[1], O_RDONLY);
 	line = get_map_lines(fd);
-	printf("line======%s", line);/////////
+	parse_map(map, fd, line);
+	// printf("line======%s", line);/////////
 	
 	// 1.	split with '\n'
 	// 
@@ -40,5 +40,6 @@ int	validation(int argc, char **argv)
 	// 4.	store map
 	// 		heck map's validation
 
+	close(fd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:36:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:10:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,7 +22,7 @@ char	*get_map_lines(int fd)
 	while (1)
 	{
 		tmp = get_next_line(fd);
-		if (!tmp)//|| tmp[0] == '\n')
+		if (!tmp)
 		{
 			get_next_line(-1);
 			if (!tmp)
@@ -38,70 +38,6 @@ char	*get_map_lines(int fd)
 		free(tmp);
 	}
 	return (line);
-}
-
-void	parse_map(t_map *m, int fd, char *line)
-{
-	char	**map;
-	// char	**textures;
-	// int		texture_len;
-	int		i;
-
-	if (!line || !*line)
-	{
-		close(fd);
-		free(line);
-		print_error("Error: Map file is empty.\n");
-	}
-	if (*line == '\n')
-	{
-		close(fd);
-		print_error("Error: Invalid map format.\n");
-	}
-	map = ft_split(line, '\n');
-	i = 0;
-	while(i < 4)
-	{
-		while(*map[i])
-		{
-			if (ft_isspace(*map[i]) == 1)
-				i++;
-			if (ft_strcmp(map[i], "NO"))
-			{
-				m->no_tx = get_texture_path(m, map[i]);
-				if (!m->no_tx)
-					return ;
-			}
-			else if(ft_strcmp(map[i], "EA"))
-			{
-				m->ea_tx = get_texture_path(m, map[i]);
-				if (!m->ea_tx)
-					return ;
-			}
-			else if (ft_strcmp(map[i], "WE"))
-			{
-				m->we_tx = get_texture_path(m, map[i]);
-				if (!m->we_tx)
-					return ;
-			}
-			else if(ft_strcmp(map[i], "SO"))
-			{
-				m->so_tx = get_texture_path(m, map[i]);
-				if (!m->so_tx)
-					return ;
-			}
-			map[i]++;
-		}
-		i++;
-	}
-	if (!map)
-	{
-		close(fd);
-		free(line);
-		// free_map(map);
-		// free(game);
-		print_error("Error: Invalid map format or malloc error.\n");
-	}
 }
 
 // void	validate_map(t_game *game, int fd, char *line)

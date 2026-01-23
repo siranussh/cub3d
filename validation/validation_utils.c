@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 17:34:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:45:43 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:31:45 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,35 +19,16 @@ int	ft_isspace(int a)
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+char	*ignore_spaces(char *str)
 {
-	int	i;
-
-	if (!s1 || !s2)
-		return (-1);
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	if (!str)
+		return (NULL);
+	while(*str)
 	{
-		i++;
+		if (ft_isspace(*str) == 1)
+			str++;
+		else
+			break;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (str);
 }
-
-char	*ft_strncpy(char *dest, char *src, int n)
-{
-	int	i;
-
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-

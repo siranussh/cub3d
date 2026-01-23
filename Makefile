@@ -1,14 +1,16 @@
 NAME = cub3D
 
-SRC_FILES = init_structs.c \
+SRC_FILES = utils.c \
+			init_structs.c \
 			error_handler.c \
 			free.c \
 			main.c
 
 SRC_VALID = read_map.c \
-			arg_validation.c \
+			path_validation.c \
 			validation_utils.c \
 			textures_validation.c \
+			parse_map.c \
 			validation.c
 
 VALID_DIR = validation
@@ -22,7 +24,7 @@ OBJ = $(OBJ_VALID) $(OBJ_FILES)
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 # MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11 -lm
 
 LIBFT = ./libft/libft.a

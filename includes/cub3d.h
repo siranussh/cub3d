@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:44:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:08:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,28 +45,34 @@ typedef struct s_map
 
 // validation_utils.c
 int		ft_isspace(int a);
-int		ft_strcmp(char *s1, char *s2);
-char	*ft_strncpy(char *dest, char *src, int n);
+char	*ignore_spaces(char *str);
 
 // textures_validation.c
 int		texture_path_len(char *str);
-char	*get_texture_path(t_map *m, char *map);
+char	*get_texture_path(char *map);
 int		if_tx_path_valid(char *path);
 
 
 // read_map.c
 char	*get_map_lines(int fd);
-// void	parse_map(t_game *game, int fd, char *line);
 
 
-// arg_validation.c
+// path_validation.c
 int		valid_path(char *path, char *domain);
+
+// parse_map.c
+void	parse_map(t_map *map, int fd, char *line);
+
 
 // validation.c
 int		validation(int argc, char **argv);
 
 
 /**************************************************/
+
+// utils.c
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_strncpy(char *dest, char *src, int n);
 
 // init_structs.c
 t_map	*init_map(void);
