@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 14:08:21 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 20:27:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,13 +32,13 @@
 
 typedef struct s_map
 {
-	// char	**map;
 	char	*no_tx;
 	char	*ea_tx;
 	char	*we_tx;
 	char	*so_tx;
 	int		floor_color;
 	int		ceiling_color;
+	char	**map_lines;//all file.cub lines
 	char	**map;
 }	t_map;
 
@@ -47,15 +47,21 @@ typedef struct s_map
 int		ft_isspace(int a);
 char	*ignore_spaces(char *str);
 
-// textures_validation.c
+// read_map.c
+char	*get_map_lines(int fd);
+
+// textures_validation_utils.c
 int		texture_path_len(char *str);
 char	*get_texture_path(char *map);
 int		if_tx_path_valid(char *path);
 
+// texture_validation.c
+void	parse_news(t_map *m, char *map_line);
 
-// read_map.c
-char	*get_map_lines(int fd);
-
+// get_color.c
+int		double_arr_size(char **arr);
+void	get_color(t_map *m, char *map_line, char type);
+void	parse_colors(t_map *m, char *map_line);
 
 // path_validation.c
 int		valid_path(char *path, char *domain);
@@ -83,5 +89,6 @@ void	free_map(t_map *map);
 
 // error_handler.c
 void	print_error(char *str);
+void	free_map_print_error(t_map *map, char *str);
 
 #endif

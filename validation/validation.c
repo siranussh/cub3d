@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 14:30:56 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 18:44:42 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,7 +39,5 @@ int	validation(int argc, char **argv)
 	// 
 	// 4.	store map
 	// 		heck map's validation
-
-	close(fd);
 	return (1);
 }

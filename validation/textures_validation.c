@@ -5,94 +5,97 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 18:09:06 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 14:52:47 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/23 19:56:57 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/23 20:25:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/cub3d.h"
 
-int	texture_path_len(char *str)
+static void	check_no_texture(t_map *m, char *map_line)
 {
-	int	i;
-	int	len;
-
-	if (!str)
-		return (0);
-	len = 0;
-	i = 0;
-	while (str[i] && !ft_isspace(str[i]))
+	if (m->no_tx)
 	{
-		len++;
-		i++;
+		free_map(m);
+		print_error("Error: Duplicate NO texture\n");
 	}
-	return (len);
+	map_line += 2;
+	map_line = ignore_spaces(map_line);
+	m->no_tx = get_texture_path(map_line);
+	if (!if_tx_path_valid(m->no_tx))
+	{
+		free_map(m);
+		print_error("Error: Invalid NO texture\n");
+	}
 }
 
-char	*get_texture_path(char *map)
+static void	check_ea_texture(t_map *m, char *map_line)
 {
-	char	*path;
-	int		texture_len;
-
-	if (!map || !*map)
-		return (NULL);
-	texture_len = 0;
-	while (ft_isspace(*map) == 1)
-		map++;
-	texture_len = texture_path_len(map);
-	if (texture_len == 0)
-		return (NULL);
-	path = (char *)malloc(texture_len + 1);
-	if (!path)
-		return (NULL);
-	ft_strncpy(path, map, texture_len);
-	if (!path)
-		return (NULL);
-	return (path);
+	if (m->ea_tx)
+	{
+		free_map(m);
+		print_error("Error: Duplicate EA texture\n");
+	}
+	map_line += 2;
+	map_line = ignore_spaces(map_line);
+	m->ea_tx = get_texture_path(map_line);
+	if (!if_tx_path_valid(m->ea_tx))
+	{
+		free_map(m);
+		print_error("Error: Invalid EA texture\n");
+	}
 }
 
-int	if_tx_path_valid(char *path)
+static void	check_we_texture(t_map *m, char *map_line)
 {
-	// int	fd;
-
-	if (!path)
-		return (0);
-	if (path[0] != '.' && path[1] != '/')
-		return (0);
-	if (!valid_path(path, ".xpm"))
-		return (0);
-	// fd = open(path, O_RDONLY);
-	// if (fd < 0)
-	// 	return (0);
-	// close(fd);
-	return (1);
+	if (m->we_tx)
+	{
+		free_map(m);
+		print_error("Error: Duplicate WE texture\n");
+	}
+	map_line += 2;
+	map_line = ignore_spaces(map_line);
+	m->we_tx = get_texture_path(map_line);
+	if (!if_tx_path_valid(m->we_tx))
+	{
+		free_map(m);
+		print_error("Error: Invalid WE texture\n");
+	}
 }
 
-// void	init_tx_paths(t_map *m, char *line)
-// {
-// 	if (ft_strcmp(line, "NO"))
-// 	{
-// 		m->no_tx = get_texture_path(m, line);
-// 		if (!m->no_tx || !if_tx_path_valid(m->no_tx))
-// 			return ;
-// 	}
-// 	else if(ft_strcmp(line, "EA"))
-// 	{
-// 		m->ea_tx = get_texture_path(m, line);
-// 		if (!m->ea_tx)
-// 			return ;
-// 	}
-// 	else if (ft_strcmp(line, "WE"))
-// 	{
-// 		m->we_tx = get_texture_path(m, line);
-// 		if (!m->we_tx)
-// 			return ;
-// 	}
-// 	else if(ft_strcmp(line, "SO"))
-// 	{
-// 		m->so_tx = get_texture_path(m, line);
-// 		if (!m->so_tx)
-// 			return ;
-// 	}
-// }
+static void	check_so_texture(t_map *m, char *map_line)
+{
+	if (m->so_tx)
+	{
+		free_map(m);
+		print_error("Error: Duplicate SO texture\n");
+	}
+	map_line += 2;
+	map_line = ignore_spaces(map_line);
+	m->so_tx = get_texture_path(map_line);
+	if (!if_tx_path_valid(m->so_tx))
+	{
+		free_map(m);	
+		print_error("Error: Invalid SO texture\n");
+	}
+}
 
+void	parse_news(t_map *m, char *map_line)
+{
+	char	*trimmed;
+
+	trimmed = ignore_spaces(map_line);
+	if (ft_strncmp(trimmed, "NO", 2) == 0)
+		check_no_texture(m, trimmed);
+	else if(ft_strncmp(trimmed, "EA", 2) == 0)
+		check_ea_texture(m, trimmed);
+	else if (ft_strncmp(trimmed, "WE", 2) == 0)
+		check_we_texture(m, trimmed);
+	else if(ft_strncmp(trimmed, "SO", 2) == 0)
+		check_so_texture(m, trimmed);
+	else
+	{
+		free_map(m);
+		print_error("Error: Invalid map\n");
+	}
+}

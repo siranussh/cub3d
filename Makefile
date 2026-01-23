@@ -9,7 +9,9 @@ SRC_FILES = utils.c \
 SRC_VALID = read_map.c \
 			path_validation.c \
 			validation_utils.c \
+			textures_validation_utils.c \
 			textures_validation.c \
+			get_color.c \
 			parse_map.c \
 			validation.c
 

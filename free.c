@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:25:44 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 12:49:22 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/23 19:52:26 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,6 +39,8 @@ void	free_map(t_map *map)
 		free(map->we_tx);
 	if (map->so_tx)
 		free(map->so_tx);
+	if (map->map_lines)
+		ft_free(map->map_lines);
 	if (map->map)
 		ft_free(map->map);
 	if (map)
