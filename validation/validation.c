@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 18:44:42 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:08:17 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,22 +22,14 @@ int	validation(int argc, char **argv)
 		print_error("Error: Wrong Arguments.\nUsage: ./cub3D map.cub\n");
 	if (!valid_path(argv[1], ".cub"))
 		print_error("Error: Invalid path.\n");
-	// init map structure
 	map = init_map();
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		free_map_print_error(map, "Error: Can't open file.\n");
 	line = get_map_lines(fd);
-	parse_map(map, fd, line);
+	check_if_file_is_empty(line, map, fd);
+	parse_map(map, fd, line);// inside free(line), close(fd)
 	// printf("line======%s", line);/////////
-	
-	// 1.	split with '\n'
-	// 
-	// 2.	check each texture path's validation
-	//	 	store textuer paths in t_map
-	// 
-	// 3.	check colors validation
-	//		floor ceiling colors
-	// 
-	// 4.	store map
-	// 		heck map's validation
+	// map validation
 	return (1);
 }

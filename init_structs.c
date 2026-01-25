@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:43:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 20:45:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 16:34:24 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,8 +23,11 @@ t_map	*init_map(void)
 	map->ea_tx = NULL;
 	map->we_tx = NULL;
 	map->so_tx = NULL;
-	map->map_lines = NULL;
+	map->param_line = NULL;
+	map->map_line = NULL;
+	map->params = NULL;
 	map->map = NULL;
+	map->map_size = 0;
 	map->floor_color = -1;
 	map->ceiling_color = -1;
 	return (map);

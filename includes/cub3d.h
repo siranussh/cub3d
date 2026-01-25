@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 20:27:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:04:57 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -38,17 +38,24 @@ typedef struct s_map
 	char	*so_tx;
 	int		floor_color;
 	int		ceiling_color;
-	char	**map_lines;//all file.cub lines
-	char	**map;
+	char	*param_line;// textures, colors line
+	char	*map_line;// containing only map
+	char	**params;// textures, colors
+	char	**map;// only the map
+	int		map_size;//????
 }	t_map;
 
 
+/******************* VALIDATION *************************/
 // validation_utils.c
 int		ft_isspace(int a);
+int		str_is_only_spaces(char *str);
 char	*ignore_spaces(char *str);
+int		find_map_start(char *line);
 
 // read_map.c
 char	*get_map_lines(int fd);
+void	check_if_file_is_empty(char *line, t_map *m, int fd);
 
 // textures_validation_utils.c
 int		texture_path_len(char *str);
@@ -72,7 +79,6 @@ void	parse_map(t_map *map, int fd, char *line);
 
 // validation.c
 int		validation(int argc, char **argv);
-
 
 /**************************************************/
 

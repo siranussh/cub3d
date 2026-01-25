@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:36:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 13:10:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:06:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,6 +40,22 @@ char	*get_map_lines(int fd)
 	return (line);
 }
 
+void	check_if_file_is_empty(char *line, t_map *m, int fd)
+{
+	if (!line || !*line)
+	{
+		close(fd);
+		free(line);
+		free_map_print_error(m, "Error: Map file is empty\n");
+	}
+	if (str_is_only_spaces(line) == 1)
+	{
+		close(fd);
+		free(line);
+		free_map_print_error(m, "Error: Map file is empty\n");
+	}
+}
+
 // void	validate_map(t_game *game, int fd, char *line)
 // {
 // 	if (!valid_map(game, game->map))
@@ -58,34 +74,4 @@ char	*get_map_lines(int fd)
 // 		free(game);
 // 		print_error("Error: Map has unreachable collectibles or exit.\n");
 // 	}
-// 	if (!map_size(game))
-// 	{
-// 		close(fd);
-// 		free(line);
-// 		free_map(game->map);
-// 		free(game);
-// 		print_error("Error: Map is too big.\n");
-// 	}
-// }
-
-// char	**load_map(char *path)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	fd = open(path, O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		// free(game);
-// 		print_error("Error: Can't open file.\n");
-// 	}
-// 	line = get_map_lines(fd);
-// 	parse_map(fd, line);
-// 	// width = ft_strlen(game->map[0]);
-// 	// while (game->map[game->height])
-// 	// 	game->height++;
-// 	// validate_map(game, fd, line);
-// 	close(fd);
-// 	free(line);
-// 	return (game->map);
 // }
