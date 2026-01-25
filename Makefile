@@ -1,38 +1,55 @@
 NAME = cub3D
 
-SRC_FILES = main.c
+SRC_RAY = raycasting/utils.c \
+		raycasting/raycasting.c \
+		raycasting/player.c \
 
-SRCS = $(addprefix ./sources/, $(SRC_FILES))
+RAY_DIR = raycasting
+OBJ_DIR = obj
 
-OBJS = $(SRCS:.c=.o)
+OBJ_RAY = $(addprefix $(OBJ_DIR)/,$(SRC_RAY:.c=.o))
+OBJ = $(OBJ_RAY)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11 -lm
 
 LIBFT = ./libft/libft.a
 
-all : $(NAME)
+# --- macOS ---
+MLX_DIR = minilibx_opengl_20191021
+MLX_INC = -I ./$(MLX_DIR)
+MLX_LIB = ./$(MLX_DIR)/libmlx.a -framework OpenGL -framework AppKit
 
-bonus : $(NAME)
 
-$(NAME) : $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJS) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)
+# --- Linux ---
+# MLX_DIR = mlx
+# MLX_INC = -I ./$(MLX_DIR)
+# MLX_LIB = -L ./mlx -lmlx -lXext -lX11 -lm
 
-$(LIBFT) :
+# - MLX (macOS/Linux)
+INC = -I . -I ./raycasting -I ./libft $(MLX_INC)
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) -L ./libft -lft -o $(NAME)
+
+$(LIBFT):
 	make -C ./libft all
 
-%.o: %.c
-	$(CC) $(CFLAGS) -I./includes -I./libft -c -o $@ $<
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-clean :
+clean:
 	make -C ./libft clean
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
-fclean : clean
+fclean: clean
 	make -C ./libft fclean
 	rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all bonus clean fclean re
+.PHONY: all clean fclean re
+
