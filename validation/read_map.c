@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:36:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:06:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:51:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -55,23 +55,3 @@ void	check_if_file_is_empty(char *line, t_map *m, int fd)
 		free_map_print_error(m, "Error: Map file is empty\n");
 	}
 }
-
-// void	validate_map(t_game *game, int fd, char *line)
-// {
-// 	if (!valid_map(game, game->map))
-// 	{
-// 		close(fd);
-// 		free(line);
-// 		free_map(game->map);
-// 		free(game);
-// 		exit(1);
-// 	}
-// 	if (!check_reachability(game))
-// 	{
-// 		close(fd);
-// 		free(line);
-// 		free_map(game->map);
-// 		free(game);
-// 		print_error("Error: Map has unreachable collectibles or exit.\n");
-// 	}
-// }

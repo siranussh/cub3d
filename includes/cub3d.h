@@ -6,13 +6,12 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:04:57 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:54:52 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 
 # define WALL 1
 # define EMPTY_SPACE 0
@@ -42,9 +41,7 @@ typedef struct s_map
 	char	*map_line;// containing only map
 	char	**params;// textures, colors
 	char	**map;// only the map
-	int		map_size;//????
 }	t_map;
-
 
 /******************* VALIDATION *************************/
 // validation_utils.c
@@ -57,23 +54,27 @@ int		find_map_start(char *line);
 char	*get_map_lines(int fd);
 void	check_if_file_is_empty(char *line, t_map *m, int fd);
 
-// textures_validation_utils.c
+// get_textures_utils.c
 int		texture_path_len(char *str);
 char	*get_texture_path(char *map);
 int		if_tx_path_valid(char *path);
 
-// texture_validation.c
-void	parse_news(t_map *m, char *map_line);
+// get_textures.c
+void	get_no_texture(t_map *m, char *map_line);
+void	get_ea_texture(t_map *m, char *map_line);
+void	get_we_texture(t_map *m, char *map_line);
+void	get_so_texture(t_map *m, char *map_line);
 
 // get_color.c
-int		double_arr_size(char **arr);
 void	get_color(t_map *m, char *map_line, char type);
-void	parse_colors(t_map *m, char *map_line);
+void	get_c_color(t_map *m, char *map_line);
+void	get_f_color(t_map *m, char *map_line);
 
 // path_validation.c
 int		valid_path(char *path, char *domain);
 
 // parse_map.c
+void	parse_params(t_map *m, char *map_line);
 void	parse_map(t_map *map, int fd, char *line);
 
 
@@ -83,6 +84,7 @@ int		validation(int argc, char **argv);
 /**************************************************/
 
 // utils.c
+int		double_arr_size(char **arr);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strncpy(char *dest, char *src, int n);
 

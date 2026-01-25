@@ -1,18 +1,18 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures_validation.c                              :+:      :+:    :+:   */
+/*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/23 19:56:57 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 20:25:49 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/25 17:30:02 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/25 17:30:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/cub3d.h"
 
-static void	check_no_texture(t_map *m, char *map_line)
+void	get_no_texture(t_map *m, char *map_line)
 {
 	if (m->no_tx)
 	{
@@ -29,7 +29,7 @@ static void	check_no_texture(t_map *m, char *map_line)
 	}
 }
 
-static void	check_ea_texture(t_map *m, char *map_line)
+void	get_ea_texture(t_map *m, char *map_line)
 {
 	if (m->ea_tx)
 	{
@@ -46,7 +46,7 @@ static void	check_ea_texture(t_map *m, char *map_line)
 	}
 }
 
-static void	check_we_texture(t_map *m, char *map_line)
+void	get_we_texture(t_map *m, char *map_line)
 {
 	if (m->we_tx)
 	{
@@ -63,7 +63,7 @@ static void	check_we_texture(t_map *m, char *map_line)
 	}
 }
 
-static void	check_so_texture(t_map *m, char *map_line)
+void	get_so_texture(t_map *m, char *map_line)
 {
 	if (m->so_tx)
 	{
@@ -77,25 +77,5 @@ static void	check_so_texture(t_map *m, char *map_line)
 	{
 		free_map(m);	
 		print_error("Error: Invalid SO texture\n");
-	}
-}
-
-void	parse_news(t_map *m, char *map_line)
-{
-	char	*trimmed;
-
-	trimmed = ignore_spaces(map_line);
-	if (ft_strncmp(trimmed, "NO", 2) == 0)
-		check_no_texture(m, trimmed);
-	else if(ft_strncmp(trimmed, "EA", 2) == 0)
-		check_ea_texture(m, trimmed);
-	else if (ft_strncmp(trimmed, "WE", 2) == 0)
-		check_we_texture(m, trimmed);
-	else if(ft_strncmp(trimmed, "SO", 2) == 0)
-		check_so_texture(m, trimmed);
-	else
-	{
-		free_map(m);
-		print_error("Error: Invalid map\n");
 	}
 }

@@ -6,23 +6,11 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:38:27 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 20:55:50 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:24:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/cub3d.h"
-
-int double_arr_size(char **arr)
-{
-	int size;
-
-	if (!arr)
-		return (0);
-	size = 0;
-	while(arr[size])
-		size++;
-	return (size);
-}
 
 static int	is_only_digits(char *color_rgb)
 {
@@ -92,27 +80,20 @@ void	get_color(t_map *m, char *map_line, char type)
 		m->ceiling_color = r * 65536 + g * 256 + b;
 }
 
-void	parse_colors(t_map *m, char *map_line)
+void	get_c_color(t_map *m, char *map_line)
 {
-	char	*trimmed;
+	if (m->ceiling_color != -1)
+		free_map_print_error(m, "Error: Duplicate ceiling color\n");
+	map_line++;
+	map_line = ignore_spaces(map_line);
+	get_color(m, map_line, 'C');
+}
 
-	trimmed = ignore_spaces(map_line);
-	if (ft_strncmp(trimmed, "C", 1) == 0)
-	{
-		if (m->ceiling_color != -1)
-			free_map_print_error(m, "Error: Duplicate ceiling color\n");
-		trimmed++;
-		trimmed = ignore_spaces(trimmed);
-		get_color(m, trimmed, 'C');
-	}
-	else if(ft_strncmp(trimmed, "F", 1) == 0)
-	{
-		if (m->floor_color != -1)
-			free_map_print_error(m, "Error: Duplicate floor color\n");
-		trimmed++;
-		trimmed = ignore_spaces(trimmed);
-		get_color(m, trimmed, 'F');
-	}
-	else
-		free_map_print_error(m, "Error: Invalid map\n");
+void	get_f_color(t_map *m, char *map_line)
+{
+	if (m->floor_color != -1)
+		free_map_print_error(m, "Error: Duplicate floor color\n");
+	map_line++;
+	map_line = ignore_spaces(map_line);
+	get_color(m, map_line, 'F');
 }

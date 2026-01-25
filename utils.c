@@ -6,11 +6,23 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:26:40 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/23 13:27:11 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:24:42 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "includes/cub3d.h"
+
+int double_arr_size(char **arr)
+{
+	int size;
+
+	if (!arr)
+		return (0);
+	size = 0;
+	while(arr[size])
+		size++;
+	return (size);
+}
 
 int	ft_strcmp(char *s1, char *s2)
 {
