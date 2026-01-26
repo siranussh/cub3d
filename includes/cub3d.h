@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:54:52 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:30:07 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -41,6 +41,7 @@ typedef struct s_map
 	char	*map_line;// containing only map
 	char	**params;// textures, colors
 	char	**map;// only the map
+	int		map_size;
 }	t_map;
 
 /******************* VALIDATION *************************/
@@ -77,6 +78,9 @@ int		valid_path(char *path, char *domain);
 void	parse_params(t_map *m, char *map_line);
 void	parse_map(t_map *map, int fd, char *line);
 
+// map_validation.c
+int		check_if_only_ones(char **map, int index);
+void	map_validation(t_map *m);
 
 // validation.c
 int		validation(int argc, char **argv);
