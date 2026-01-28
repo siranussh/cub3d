@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/23 18:38:27 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:24:35 by anavagya         ###   ########.fr       */
+/*   Created: 2026/01/28 12:58:09 by anavagya          #+#    #+#             */
+/*   Updated: 2026/01/28 12:58:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -42,7 +42,7 @@ static int	is_only_digits(char *color_rgb)
 
 static int	check_rgb(char **rgb)
 {
-	int i;
+	int	i;
 
 	if (double_arr_size(rgb) < 3)
 		return (0);
@@ -58,10 +58,10 @@ static int	check_rgb(char **rgb)
 
 void	get_color(t_map *m, char *map_line, char type)
 {
-	int	    r;
-	int	    g;
-	int	    b;
-	char    **color_rgb;
+	int		r;
+	int		g;
+	int		b;
+	char	**color_rgb;
 
 	r = 0;
 	g = 0;

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/26 13:30:07 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/28 17:34:02 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <fcntl.h> // open() flags
 # include <stdio.h> // perror()
 # include <string.h> // strerror()
-#include <sys/time.h> // gettimeofday()
+# include <sys/time.h> // gettimeofday()
 // # include <../mlx/mlx.h>
 
 typedef struct s_map
@@ -42,6 +42,7 @@ typedef struct s_map
 	char	**params;// textures, colors
 	char	**map;// only the map
 	int		map_size;
+	int		longest_line;
 }	t_map;
 
 /******************* VALIDATION *************************/
@@ -80,6 +81,8 @@ void	parse_map(t_map *map, int fd, char *line);
 
 // map_validation.c
 int		check_if_only_ones(char **map, int index);
+int		characters_count_check(char **map);
+int		maps_longest_line(char **map);
 void	map_validation(t_map *m);
 
 // validation.c
