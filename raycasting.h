@@ -15,50 +15,57 @@
 #include "mlx.h"
 
 //linux
-// # define W 119
-// # define A 97
-// # define S 115
-// # define D 100
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define LEFT 65361
+# define RIGHT 65363
 
 //macos
-# define W 13
-# define A 0
-# define S 1
-# define D 2
+// # define W 13
+// # define A 0
+// # define S 1
+// # define D 2
 
 # define PI 3.14159265359 //for angle calculations
 
 typedef struct s_player
 {
-    float x;
-    float y;
-    bool key_up;
-    bool key_down;
-    bool key_left;
-    bool key_right;
+	float x;
+	float y;
+	float angle;
+	bool key_up;
+	bool key_down;
+	bool key_left;
+	bool key_right;
+	bool left_rotate;
+	bool right_rotate;
 } t_player;
 
 typedef struct s_game
 {
-    void *mlx;
-    void *window;
-    void *img;
-    char *data;
-    int bpp;
-    int size_line;
-    int endian;
-    t_player player;
+	void *mlx;
+	void *window;
+	void *img;
+	char *data;
+	int bpp;
+	int size_line;
+	int endian;
+	char **map;
+	t_player player;
 } t_game;
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define BLOCK 64
 
 void    print_error(char *str);
 
 //player.c
 void    init_player(t_player *player);
-int     key_press(int keycode, t_player *player);
-int     key_release(int keycode , t_player *player);
+int     key_press(int keycode, t_game *game);
+int     key_release(int keycode , t_game *game);
 void    move_player(t_player *player);
 
 //raycasting.c
