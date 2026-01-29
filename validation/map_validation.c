@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/28 17:34:07 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:26:30 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,13 @@ void	map_validation(t_map *m)
 			"Error: Map must contain one player position\n");
 	map_copy = copy_map(m);
 	// (void)map_copy;
-	int i = 0;
-	while (map_copy[i])
-	{
-		printf("%s\n", map_copy[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (map_copy[i])
+	// {
+	// 	printf("%s\n", map_copy[i]);
+	// 	i++;
+	// }
+	flood_fill(m, map_copy, m->player_x, m->player_y);
+	if (m->is_open)
+		free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
 }

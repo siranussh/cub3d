@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/28 17:34:02 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/29 15:30:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ typedef struct s_map
 	char	**map;// only the map
 	int		map_size;
 	int		longest_line;
+	int		is_open;
+	int		player_x;
+	int		player_y;
 }	t_map;
 
 /******************* VALIDATION *************************/
@@ -74,6 +77,12 @@ void	get_f_color(t_map *m, char *map_line);
 
 // path_validation.c
 int		valid_path(char *path, char *domain);
+
+// flood_fill.c
+void	flood_fill(t_map *m, char **map, int x, int y);
+
+// get_position.c
+void	player_position(t_map *map);
 
 // parse_map.c
 void	parse_params(t_map *m, char *map_line);

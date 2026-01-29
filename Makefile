@@ -13,6 +13,8 @@ SRC_VALID = read_map.c \
 			get_textures.c \
 			get_color.c \
 			parse_map.c \
+			flood_fill.c \
+			get_position.c \
 			map_validation.c \
 			validation.c
 
