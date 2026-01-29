@@ -139,8 +139,8 @@ void move_player(t_player *player)
     int speed;
     float angle_speed;
 
-    speed = 5;
-    angle_speed = 0.1;
+    speed = 3;
+    angle_speed = 0.03;
 
     update_player_rotation(player, angle_speed);
     update_player_position(player, speed);
