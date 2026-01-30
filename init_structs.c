@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:43:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/29 15:11:25 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:32:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_map	*init_map(void)
 	map->param_line = NULL;
 	map->map_line = NULL;
 	map->params = NULL;
+	map->original_map = NULL;
 	map->map = NULL;
 	map->map_size = 0;
 	map->longest_line = 0;

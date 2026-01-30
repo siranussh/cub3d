@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/29 16:26:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:44:16 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,79 +99,43 @@ int	maps_longest_line(char **map)
 	return (max_len);
 }
 
-char	**copy_map(t_map *m)
-{
-	int		i;
-	int		j;
-	int		row_len;
-	char	**map_copy;
-
-	if (!m || !m->map)
-		return (NULL);
-	m->longest_line = maps_longest_line(m->map);
-	if (!m->longest_line)
-		return (NULL);
-	map_copy = (char **)malloc(sizeof(char *) * (m->map_size + 1));
-	if (!map_copy)
-		return (NULL);
-	i = 0;
-	while (i < m->map_size)
-	{
-		map_copy[i] = (char *)malloc(sizeof(char) * (m->longest_line + 1));
-		if (!map_copy[i])
-		{
-			while (i-- > 0)
-				free(map_copy[i]);
-			free(map_copy);
-			return (NULL);
-		}
-		row_len = ft_strlen(m->map[i]);
-		j = 0;
-		while (j < m->longest_line)
-		{
-			if (j >= row_len || m->map[i][j] == ' ')
-				map_copy[i][j] = '6';
-			else
-				map_copy[i][j] = m->map[i][j];
-			j++;
-		}
-		map_copy[i][j] = '\0';
-		if (!map_copy[i])
-		{
-			while (--i >= 0)
-				free(map_copy[i]);
-			free(map_copy);
-		}
-		i++;
-	}
-	map_copy[i] = NULL;
-	return (map_copy);
-}
-
 void	map_validation(t_map *m)
 {
 
 	char **map_copy;
 
 	map_copy = NULL;
-	m->map_size = double_arr_size(m->map);
-	if (!check_if_only_ones(m->map, 0)
-		|| !check_if_only_ones(m->map, m->map_size - 1))
+	m->map_size = double_arr_size(m->original_map);
+	if (!check_if_only_ones(m->original_map, 0)
+		|| !check_if_only_ones(m->original_map, m->map_size - 1))
 		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
-	if (!if_valid_chars(m->map))
+	if (!if_valid_chars(m->original_map))
 		free_map_print_error(m, "Error: Invalid charecters");
-	if (characters_count_check(m->map) != 1)
+	if (characters_count_check(m->original_map) != 1)
 		free_map_print_error(m,
 			"Error: Map must contain one player position\n");
+	m->map = make_map_rect(m);
 	map_copy = copy_map(m);
+
 	// (void)map_copy;
 	// int i = 0;
-	// while (map_copy[i])
+	// while (m->map[i])
 	// {
-	// 	printf("%s\n", map_copy[i]);
+	// 	printf("%s\n", m->map[i]);
 	// 	i++;
 	// }
-	flood_fill(m, map_copy, m->player_x, m->player_y);
-	if (m->is_open)
-		free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
+	int	i = 0;
+	while (i < m->map_size)
+	{
+		flood_fill(m, map_copy, i, 0);
+		if (m->is_open)
+			free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
+		flood_fill(m, map_copy, i, m->longest_line - 1);
+		if (m->is_open)
+			free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
+		i++;
+	}
+	// flood_fill(m, map_copy, m->player_x, m->player_y);
+	// if (m->is_open)
+	// 	free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
 }

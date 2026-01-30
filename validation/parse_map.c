@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/26 13:39:53 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:30:18 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	parse_map(t_map *m, int fd, char *line)
 		free_map_print_error(m, "Error: Missing texture\n");
 	if (m->floor_color == -1 || m->ceiling_color == -1)
 		free_map_print_error(m, "Error: Missing floor or ceiling color\n");
-	m->map = ft_split(m->map_line, '\n');
-	if (!m->map || !*(m->map))
+	m->original_map = ft_split(m->map_line, '\n');
+	if (!m->original_map || !*(m->original_map))
 		free_map_print_error(m, "Error: Map doesn't exist\n");
 	// i = 0;
 	// while (m->map[i])
