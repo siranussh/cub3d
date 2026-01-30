@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:58:09 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/28 12:58:30 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:38:29 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -72,6 +72,7 @@ void	get_color(t_map *m, char *map_line, char type)
 	r = ft_atoi(color_rgb[0]);
 	g = ft_atoi(color_rgb[1]);
 	b = ft_atoi(color_rgb[2]);
+	ft_free(color_rgb);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		free_map_print_error(m, "Error: Invalid rgb values\n");
 	if (type == 'F')

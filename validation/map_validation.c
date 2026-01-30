@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 21:50:58 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:39:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -125,6 +125,7 @@ void	map_validation(t_map *m)
 	// }
 	player_position(m);
 	flood_fill(m, map_copy, m->player_y, m->player_x);
+	ft_free(map_copy);
 	if (m->is_open)
 		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 22:32:15 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:48:22 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -68,9 +68,9 @@ void	parse_map(t_map *m, int fd, char *line)
 	index = find_map_start(line);
 	m->param_line = ft_substr(line, 0, index - 1);
 	m->map_line = ft_substr(line, index, ft_strlen(line));
-	ensure_no_empty_map_lines(m, m->map_line);
 	free(line);
 	close(fd);
+	ensure_no_empty_map_lines(m, m->map_line);
 	m->params = ft_split(m->param_line, '\n');
 	i = 0;
 	while (m->params[i])
