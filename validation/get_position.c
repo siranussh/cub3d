@@ -23,7 +23,8 @@ void	player_position(t_map *map)
 		i = 0;
 		while (i < map->longest_line)
 		{
-			if (map->map[j][i] == 'P')
+			if (map->map[j][i] == 'N' || map->map[j][i] == 'S'
+				|| map->map[j][i] == 'E' || map->map[j][i] == 'W')
 			{
 				map->player_x = i;
 				map->player_y = j;

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:31:53 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:31:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:00:50 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,6 +46,7 @@ char	*get_texture_path(char *map)
 	if (!path)
 		return (NULL);
 	ft_strncpy(path, map, texture_len);
+	path[texture_len] = '\0';
 	if (!path)
 		return (NULL);
 	return (path);

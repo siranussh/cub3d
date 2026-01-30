@@ -1,18 +1,18 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/26 13:49:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:32:29 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
-int	validation(int argc, char **argv)
+void	validation(int argc, char **argv)
 {
 	t_map	*map;
 	int		fd;
@@ -29,9 +29,6 @@ int	validation(int argc, char **argv)
 	line = get_map_lines(fd);
 	check_if_file_is_empty(line, map, fd);
 	parse_map(map, fd, line);// inside free(line), close(fd)
-	// printf("line======%s", line);/////////
-	// map validation
 	map_validation(map);
 	free_map(map);
-	return (1);
 }

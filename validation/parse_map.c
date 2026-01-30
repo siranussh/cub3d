@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 15:30:18 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:32:15 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -36,6 +36,29 @@ void	parse_params(t_map *m, char *map_line)
 	}
 }
 
+void	ensure_no_empty_map_lines(t_map *m, const char *map_line)
+{
+	int	i;
+	int	line_has_content;
+
+	i = 0;
+	line_has_content = 0;
+	while (map_line && map_line[i])
+	{
+		line_has_content = 0;
+		while (map_line[i] && map_line[i] != '\n')
+		{
+			if (!ft_isspace(map_line[i]))
+				line_has_content = 1;
+			i++;
+		}
+		if (!line_has_content)
+			free_map_print_error(m, "Error: Empty line inside map\n");
+		if (map_line[i] == '\n')
+			i++;
+	}
+}
+
 void	parse_map(t_map *m, int fd, char *line)
 {
 	int		i;
@@ -45,6 +68,7 @@ void	parse_map(t_map *m, int fd, char *line)
 	index = find_map_start(line);
 	m->param_line = ft_substr(line, 0, index - 1);
 	m->map_line = ft_substr(line, index, ft_strlen(line));
+	ensure_no_empty_map_lines(m, m->map_line);
 	free(line);
 	close(fd);
 	m->params = ft_split(m->param_line, '\n');

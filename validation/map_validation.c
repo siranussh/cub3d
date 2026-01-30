@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 18:44:16 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/01/30 21:50:58 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -116,7 +116,6 @@ void	map_validation(t_map *m)
 			"Error: Map must contain one player position\n");
 	m->map = make_map_rect(m);
 	map_copy = copy_map(m);
-
 	// (void)map_copy;
 	// int i = 0;
 	// while (m->map[i])
@@ -124,18 +123,8 @@ void	map_validation(t_map *m)
 	// 	printf("%s\n", m->map[i]);
 	// 	i++;
 	// }
-	int	i = 0;
-	while (i < m->map_size)
-	{
-		flood_fill(m, map_copy, i, 0);
-		if (m->is_open)
-			free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
-		flood_fill(m, map_copy, i, m->longest_line - 1);
-		if (m->is_open)
-			free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
-		i++;
-	}
-	// flood_fill(m, map_copy, m->player_x, m->player_y);
-	// if (m->is_open)
-	// 	free_map_print_error(m, "Error: Map isn't properly enclosed 1\n");
+	player_position(m);
+	flood_fill(m, map_copy, m->player_y, m->player_x);
+	if (m->is_open)
+		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 }
