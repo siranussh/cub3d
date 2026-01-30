@@ -36,20 +36,21 @@ void draw_map(t_game *game)
 
 void  clear_image(t_game *game)
 {
-	int y;
-	int x;
+// 	int y;
+// 	int x;
 
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			put_pixel(x, y, 0, game);
-			x++;
-		}
-		y++;
-	}
+// 	y = 0;
+// 	while (y < HEIGHT)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH)
+// 		{
+// 			put_pixel(x, y, 0, game);
+// 			x++;
+// 		}
+// 		y++;
+ft_bzero(game->data, HEIGHT * game->size_line);
+
 }
 //to draw pixels/squares in an MLX image
 void draw_square(int x, int y, int size, int color, t_game *game)
@@ -64,10 +65,10 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 		put_pixel(x, y + i, color, game);
 	i = -1;
 	while (++i < size)
-		put_pixel(x +  size, y + i, color, game);
+		put_pixel(x +  size - 1, y + i, color, game);
 	i = -1;
 	while (++i < size)
-		put_pixel(x + i, y + size, color, game);
+		put_pixel(x + i, y + size - 1, color, game);
 }
 
 char **get_map(void)
@@ -172,6 +173,8 @@ float cast_ray(t_player *player, t_game *game, float angle)
     float cos_angle;
     float sin_angle;
 
+
+    normalize_angle(&player->angle);
     cos_angle = cos(angle);
     sin_angle = sin(angle);
     ray_x = player->x;
@@ -192,18 +195,27 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
     int start_y;
     int end_y;
     int height;
+    int y;
 
     dist = cast_ray(player, game, angle);
-    height = (BLOCK / dist) * (WIDTH / 2);
+    height = (BLOCK / dist) * (HEIGHT / 2);
     start_y = (HEIGHT - height) / 2;
     end_y = start_y + height;
-
-    while (start_y < end_y)
+    y = -1;
+    while (++y < start_y)//ceiling
+        put_pixel(i, y, 0x87CEEB, game);
+    while (y < end_y)//wall
     {
-        put_pixel(i, start_y, 255, game);
-        start_y++;
+        put_pixel(i, y, 255, game);
+        y++;
+    }
+    while (y < HEIGHT)//floor
+    {
+        put_pixel(i, y, 0x444444, game);
+        y++;
     }
 }
+
 
 int draw_loop(t_game *game)
 {
@@ -213,7 +225,7 @@ int draw_loop(t_game *game)
 	int i;
 
 	player = &game->player;
-	move_player(player);
+	move_player(player, game);
 	clear_image(game);
 	// draw_square(player->x, player->y, 10, 0x00FF00, game);
 	// draw_map(game);
@@ -236,7 +248,7 @@ int main()
     init_game(&game);
 	mlx_hook(game.window, 2, 1L<<0, key_press, &game);//1L<<0 this is bitmask for key press
 	mlx_hook(game.window, 3, 1L<<1, key_release, &game);//1L<<1 this is bitmask for key press
-	
+	mlx_hook(game.window, 17, 0, handle_destroy, &game);
 	// mlx_put_image_to_window(game.mlx, game.window, game.img, 0, 0);//macos version
 	// draw_square(WIDTH / 2, HEIGHT / 2, 10, 0x00FF00, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);

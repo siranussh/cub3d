@@ -2,8 +2,10 @@ NAME = cub3D
 
 SRC_FILES = raycasting/utils.c \
             raycasting/raycasting.c \
-            raycasting/player.c
-
+            raycasting/player.c \
+			raycasting/player_movement.c \
+			raycasting/hook.c \
+			
 OBJS = $(SRC_FILES:.c=.o)
 
 CC = cc

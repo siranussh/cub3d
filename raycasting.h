@@ -21,6 +21,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+# define CLOSE 65307
 
 //macos
 // # define W 13
@@ -28,7 +29,8 @@
 // # define S 1
 // # define D 2
 
-# define PI 3.14159265359 //for angle calculations
+// # define PI 3.14159265359 //for angle calculations
+# define PI 3.1415926f
 
 typedef struct s_player
 {
@@ -66,7 +68,8 @@ void    print_error(char *str);
 void    init_player(t_player *player);
 int     key_press(int keycode, t_game *game);
 int     key_release(int keycode , t_game *game);
-void    move_player(t_player *player);
+void    move_player(t_player *player, t_game *game);
+void normalize_angle(float *angle);
 
 //raycasting.c
 void put_pixel(int x, int y, int color, t_game *game);
@@ -74,5 +77,13 @@ void  clear_image(t_game *game);
 void draw_square(int x, int y, int size, int color, t_game *game);
 void init_game(t_game *game);
 int draw_loop(t_game *game);
+bool touch(float px, float py, t_game *game);
 
+
+//player_movement.c
+void update_player_position(t_player *player, int speed, t_game *game);
+
+//hook.c
+int	handle_destroy(t_game *game);
+void	close_game(t_game *game);
 #endif 
