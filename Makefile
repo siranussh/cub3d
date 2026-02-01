@@ -16,6 +16,9 @@ SRC_VALID = read_map.c \
 			flood_fill.c \
 			get_position.c \
 			map_manipulation.c \
+			map_validation_utils.c \
+			check_edges.c \
+			check_space_adjacent.c \
 			map_validation.c \
 			validation.c
 

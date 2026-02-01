@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 22:32:29 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:12:48 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,7 +28,7 @@ void	validation(int argc, char **argv)
 		free_map_print_error(map, "Error: Can't open file.\n");
 	line = get_map_lines(fd);
 	check_if_file_is_empty(line, map, fd);
-	parse_map(map, fd, line);// inside free(line), close(fd)
+	parse_map(map, fd, line);
 	map_validation(map);
-	free_map(map);
+	free_map(map);// hanel
 }

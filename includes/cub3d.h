@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 13:47:13 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 15:21:35 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,17 +31,17 @@
 
 typedef struct s_map
 {
-	char	*no_tx;
-	char	*ea_tx;
-	char	*we_tx;
-	char	*so_tx;
+	char	*no_tx;// no texture path
+	char	*ea_tx;// ea texture path
+	char	*we_tx;// we texture path
+	char	*so_tx;// so texture path
 	int		floor_color;
 	int		ceiling_color;
 	char	*param_line;// textures, colors line
 	char	*map_line;// containing only map
 	char	**params;// textures, colors
-	char	**original_map;
 	char	**map;// map for Siran
+	char	**rect_map;
 	int		map_size;// height
 	int		longest_line;// width
 	int		is_open;
@@ -89,17 +89,23 @@ void	player_position(t_map *map);
 void	parse_params(t_map *m, char *map_line);
 void	parse_map(t_map *map, int fd, char *line);
 
+// map_validation_utils.c
+int		check_if_only_ones(char **map, int index);
+int		if_valid_chars(char **map);
+int		maps_longest_line(char **map);
+int		characters_count_check(char **map);
+
+// check_edges.c
+int		check_edges(char **map, int map_size, int longest_line);
+
+// check_space_adjacent.c
+int		check_space_adjacent(char **map, int map_size, int longest_line);
+
 // map_manipulation.c
 char	**copy_map(t_map *m);
 char	**make_map_rect(t_map *m);
 
 // map_validation.c
-int		check_if_only_ones(char **map, int index);
-int		check_edges(t_map *m);
-int		check_space_adjacent(t_map *m);
-int		characters_count_check(char **map);
-int		maps_longest_line(char **map);
-char	**make_map_rect(t_map *m);
 void	map_validation(t_map *m);
 
 // validation.c

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:25:44 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 22:41:48 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 14:29:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,10 +45,10 @@ void	free_map(t_map *map)
 		free(map->map_line);
 	if (map->params)
 		ft_free(map->params);
-	if (map->original_map)
-		ft_free(map->original_map);
 	if (map->map)
 		ft_free(map->map);
+	if (map->rect_map)
+		ft_free(map->rect_map);
 	if (map)
 		free(map);
 }
