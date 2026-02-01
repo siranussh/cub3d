@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 22:39:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 13:47:11 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -99,9 +99,67 @@ int	maps_longest_line(char **map)
 	return (max_len);
 }
 
+int	check_edges(t_map *m)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < m->map_size)
+	{
+		if (m->map[i][0] != '1' && m->map[i][0] != '6')
+			return (0);
+		if (m->map[i][m->longest_line - 1] != '1' 
+			&& m->map[i][m->longest_line - 1] != '6')
+			return (0);
+		i++;
+	}
+	j = 0;
+	while (j < m->longest_line)
+	{
+		if (m->map[0][j] != '1' && m->map[0][j] != '6')
+			return (0);
+		if (m->map[m->map_size - 1][j] != '1' 
+			&& m->map[m->map_size - 1][j] != '6')
+			return (0);
+		j++;
+	}
+	return (1);
+}
+
+int	is_walkable(char c)
+{
+	return (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int	check_space_adjacent(t_map *m)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < m->map_size)
+	{
+		j = 0;
+		while (j < m->longest_line)
+		{
+			if (m->map[i][j] == '6' || m->map[i][j] == ' ')
+			{
+				if ((i > 0 && is_walkable(m->map[i - 1][j]))
+					|| (i < m->map_size - 1 && is_walkable(m->map[i + 1][j]))
+					|| (j > 0 && is_walkable(m->map[i][j - 1]))
+					|| (j < m->longest_line - 1 && is_walkable(m->map[i][j + 1])))
+					return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	map_validation(t_map *m)
 {
-
 	char **map_copy;
 
 	map_copy = NULL;
@@ -115,17 +173,16 @@ void	map_validation(t_map *m)
 		free_map_print_error(m,
 			"Error: Map must contain one player position\n");
 	m->map = make_map_rect(m);
-	map_copy = copy_map(m);
-	// (void)map_copy;
-	// int i = 0;
-	// while (m->map[i])
-	// {
-	// 	printf("%s\n", m->map[i]);
-	// 	i++;
-	// }
+	if (!check_edges(m))
+		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
+	if (!check_space_adjacent(m))
+		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 	player_position(m);
+	map_copy = copy_map(m);
+	m->is_open = 0;
 	flood_fill(m, map_copy, m->player_y, m->player_x);
 	ft_free(map_copy);
 	if (m->is_open)
 		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 }
+

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 22:33:18 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 13:47:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -80,7 +80,7 @@ void	get_f_color(t_map *m, char *map_line);
 int		valid_path(char *path, char *domain);
 
 // flood_fill.c
-void	flood_fill(t_map *m, char **map, int x, int y);
+void	flood_fill(t_map *m, char **map, int y, int x);
 
 // get_position.c
 void	player_position(t_map *map);
@@ -95,6 +95,8 @@ char	**make_map_rect(t_map *m);
 
 // map_validation.c
 int		check_if_only_ones(char **map, int index);
+int		check_edges(t_map *m);
+int		check_space_adjacent(t_map *m);
 int		characters_count_check(char **map);
 int		maps_longest_line(char **map);
 char	**make_map_rect(t_map *m);

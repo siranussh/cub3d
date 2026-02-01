@@ -6,32 +6,32 @@
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:55:15 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/30 21:33:56 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/01 13:47:01 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/cub3d.h"
 
-void	flood_fill(t_map *m, char **map, int x, int y)
+void	flood_fill(t_map *m, char **map, int y, int x)
 {
-	if (x < 0 || y < 0 || x >= m->map_size || y >= m->longest_line)
+	if (y < 0 || x < 0 || y >= m->map_size || x >= m->longest_line)
 	{
 		m->is_open = 1;
 		return ;
 	}
-	if (map[x][y] == '6')
+	if (map[y][x] == '6' || map[y][x] == ' ')
 	{
 		m->is_open = 1;
 		return ;
 	}
-	if (map[x][y] == '1' || map[x][y] == 'F')
+	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;
-	if (map[x][y] != '0' && map[x][y] != 'N' && map[x][y] != 'S'
-		&& map[x][y] != 'E' && map[x][y] != 'W')
+	if (map[y][x] != '0' && map[y][x] != 'N' && map[y][x] != 'S'
+		&& map[y][x] != 'E' && map[y][x] != 'W')
 		return ;
-	map[x][y] = 'F';
-	flood_fill(m, map, x - 1, y);
-	flood_fill(m, map, x + 1, y);
-	flood_fill(m, map, x, y - 1);
-	flood_fill(m, map, x, y + 1);
+	map[y][x] = 'F';
+	flood_fill(m, map, y - 1, x);
+	flood_fill(m, map, y + 1, x);
+	flood_fill(m, map, y, x - 1);
+	flood_fill(m, map, y, x + 1);
 }
