@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 15:21:35 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:22:43 by sihakoby         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -28,6 +28,7 @@
 # include <string.h> // strerror()
 # include <sys/time.h> // gettimeofday()
 // # include <../mlx/mlx.h>
+# include "raycasting.h"
 
 typedef struct s_map
 {
@@ -109,7 +110,7 @@ char	**make_map_rect(t_map *m);
 void	map_validation(t_map *m);
 
 // validation.c
-void		validation(int argc, char **argv);
+void		validation(int argc, char **argv, t_map *map);
 
 /**************************************************/
 

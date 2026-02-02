@@ -22,35 +22,44 @@ SRC_VALID = read_map.c \
 			map_validation.c \
 			validation.c
 
+SRC_RAYCASTING = raycasting.c \
+				player.c \
+				player_movement.c \
+				hook.c \
+
 VALID_DIR = validation
+RAYCASTING_DIR = raycasting
 
 OBJ_DIR = obj
 
 OBJ_VALID = $(addprefix $(OBJ_DIR)/$(VALID_DIR)/,$(SRC_VALID:.c=.o))
+OBJ_RAYCASTING = $(addprefix $(OBJ_DIR)/$(RAYCASTING_DIR)/,$(SRC_RAYCASTING:.c=.o))
 OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
 
-OBJ = $(OBJ_VALID) $(OBJ_FILES)
+OBJ = $(OBJ_VALID) $(OBJ_FILES) $(OBJ_RAYCASTING)
 
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
-# MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11 -lm
+
+MLX_DIR = mlx
+MLX_FLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
+
+INC = -I ./includes -I . -I ./raycasting -I ./libft -I ./mlx
 
 LIBFT = ./libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJ) -L ./libft -lft -o $(NAME)
-# $(NAME) : $(OBJ) $(LIBFT)
-# 	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJ) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(INC) $(OBJ) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)
 
 $(LIBFT) :
 	make -C ./libft all
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean :
 	make -C ./libft clean
