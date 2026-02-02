@@ -1,33 +1,60 @@
 NAME = cub3D
 
-SRC_FILES = main.c
+SRC_FILES = utils.c \
+			init_structs.c \
+			error_handler.c \
+			free.c \
+			main.c
 
-SRCS = $(addprefix ./sources/, $(SRC_FILES))
+SRC_VALID = read_map.c \
+			path_validation.c \
+			validation_utils.c \
+			get_textures_utils.c \
+			get_textures.c \
+			get_color.c \
+			parse_map.c \
+			flood_fill.c \
+			get_position.c \
+			map_manipulation.c \
+			map_validation_utils.c \
+			check_edges.c \
+			check_space_adjacent.c \
+			map_validation.c \
+			validation.c
 
-OBJS = $(SRCS:.c=.o)
+VALID_DIR = validation
+
+OBJ_DIR = obj
+
+OBJ_VALID = $(addprefix $(OBJ_DIR)/$(VALID_DIR)/,$(SRC_VALID:.c=.o))
+OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
+
+OBJ = $(OBJ_VALID) $(OBJ_FILES)
+
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -g3
+# MLX_FLAGS	= -Lmlx -lmlx -lXext -lX11 -lm
 
 LIBFT = ./libft/libft.a
 
 all : $(NAME)
 
-bonus : $(NAME)
-
-$(NAME) : $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJS) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)
+$(NAME) : $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJ) -L ./libft -lft -o $(NAME)
+# $(NAME) : $(OBJ) $(LIBFT)
+# 	$(CC) $(CFLAGS) -I ./includes -I ./libft  $(OBJ) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)
 
 $(LIBFT) :
 	make -C ./libft all
 
-%.o: %.c
-	$(CC) $(CFLAGS) -I./includes -I./libft -c -o $@ $<
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I ./includes -I ./libft -c $< -o $@
 
 clean :
 	make -C ./libft clean
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean : clean
 	make -C ./libft fclean
@@ -35,4 +62,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all bonus clean fclean re
+.PHONY : all clean fclean re
