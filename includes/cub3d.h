@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 16:34:31 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/02 18:09:07 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // # define PI 3.14159265359 //for angle calculations
 # define PI 3.1415926f
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <unistd.h> // close() read()
 # include <stdlib.h> // open() malloc() exit()
 # include <fcntl.h> // open() flags
@@ -152,7 +152,7 @@ char	**make_map_rect(t_map *m);
 void	map_validation(t_game *game);
 
 // validation.c
-void	validation(char **argv, t_game *game);
+void	validation(int argc, char **argv, t_game *game);
 
 /**************************************************/
 
@@ -170,6 +170,7 @@ void	put_pixel(int x, int y, int color, t_game *game);
 void 	clear_image(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
 t_game	*init_game(void);
+void init_mlx(t_game *game);
 int		draw_loop(t_game *game);
 bool	touch(float px, float py, t_game *game);
 

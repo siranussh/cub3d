@@ -4,7 +4,7 @@
 int	handle_destroy(t_game *game)
 {
 	free_game(game);
-	return (0);
+	exit (0);
 }
 
 void	free_game(t_game *game)

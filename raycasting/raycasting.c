@@ -102,12 +102,27 @@ t_game	*init_game(void)
 	
 	init_player(&game->player);
 	// game->map->map = get_map();
-    game->mlx = mlx_init();
-    game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
-    game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);//unlocks pixel-level access
-	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);//linux version
 	return (game);
+}
+
+void init_mlx(t_game *game)
+{
+    game->mlx = mlx_init();
+    if (!game->mlx)
+        free_and_print_error(game, "mlx_init failed\n");
+
+    game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
+    if (!game->window)
+        free_and_print_error(game, "mlx_new_window failed\n");
+
+    game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+    if (!game->img)
+        free_and_print_error(game, "mlx_new_image failed\n");
+
+    game->data = mlx_get_data_addr(
+        game->img, &game->bpp, &game->size_line, &game->endian);
+    if (!game->data)
+        free_and_print_error(game, "mlx_get_data_addr failed\n");
 }
 
 bool touch(float px, float py, t_game *game)
