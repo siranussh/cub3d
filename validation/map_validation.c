@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 15:20:20 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:20:12 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -22,7 +22,7 @@ void	map_validation(t_map *m)
 		|| !check_if_only_ones(m->map, m->map_size - 1))
 		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 	if (!if_valid_chars(m->map))
-		free_map_print_error(m, "Error: Invalid charecters");
+		free_map_print_error(m, "Error: Invalid charecters\n");
 	if (characters_count_check(m->map) != 1)
 		free_map_print_error(m,
 			"Error: Map must contain one player position\n");
