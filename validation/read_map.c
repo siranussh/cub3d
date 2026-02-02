@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:50:53 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 13:50:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 15:59:35 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ char	*get_map_lines(int fd)
 	return (line);
 }
 
-void	check_if_file_is_empty(char *line, t_map *m, int fd)
+void	check_if_file_is_empty(char *line, t_game *game, int fd)
 {
 	if (!line || !*line)
 	{
 		close(fd);
 		free(line);
-		free_map_print_error(m, "Error: Map file is empty\n");
+		free_and_print_error(game, "Error: gameap file is empty\n");
 	}
 	if (str_is_only_spaces(line) == 1)
 	{
 		close(fd);
 		free(line);
-		free_map_print_error(m, "Error: Map file is empty\n");
+		free_and_print_error(game, "Error: Map file is empty\n");
 	}
 }

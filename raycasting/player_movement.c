@@ -1,4 +1,4 @@
-#include "raycasting.h"
+#include "../includes/cub3d.h"
 
 static void move_forward_backward(t_player *player, float *move_x, float *move_y)
 {

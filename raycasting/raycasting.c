@@ -1,4 +1,4 @@
-#include "raycasting.h"
+#include "../includes/cub3d.h"
 
 
 void put_pixel(int x, int y, int color, t_game *game)
@@ -14,7 +14,7 @@ void put_pixel(int x, int y, int color, t_game *game)
 
 void draw_map(t_game *game)
 {
-	char **map = game->map;
+	char **map = game->map->map;
 	int color = 0x0000FF;
 	int y;
 	int x;
@@ -92,15 +92,22 @@ char **get_map(void)
 /*ray is a imaginary straight line goinf=g in a specific direction until it hits a wall*/
 //raycasting is throwing many rays ...🦗
 //game->data is a 1D array of bytes
-void init_game(t_game *game)
+t_game	*init_game(void)
 {
+	t_game	*game;
+
+	game = ft_calloc(1, sizeof(t_game));
+	if (!game)
+		print_error("Error: malloc failed/n");
+	
 	init_player(&game->player);
-	game->map = get_map();
+	// game->map->map = get_map();
     game->mlx = mlx_init();
     game->window = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
     game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);//unlocks pixel-level access
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);//linux version
+	return (game);
 }
 
 bool touch(float px, float py, t_game *game)
@@ -112,9 +119,9 @@ bool touch(float px, float py, t_game *game)
 	y = py / BLOCK;
 	if (x < 0 || y < 0)
 		return (true);
-	if (!game->map[y] || !game->map[y][x])
+	if (!game->map->map[y] || !game->map->map[y][x])
 		return (true);
-	if (game->map[y][x] == '1')
+	if (game->map->map[y][x] == '1')
 		return (true);
 	return (false);
 }
@@ -203,7 +210,7 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
     end_y = start_y + height;
     y = -1;
     while (++y < start_y)//ceiling
-        put_pixel(i, y, 0x87CEEB, game);
+        put_pixel(i, y, game->map->ceiling_color, game);
     while (y < end_y)//wall
     {
         put_pixel(i, y, 255, game);
@@ -211,7 +218,7 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
     }
     while (y < HEIGHT)//floor
     {
-        put_pixel(i, y, 0x444444, game);
+        put_pixel(i, y, game->map->floor_color, game);
         y++;
     }
 }

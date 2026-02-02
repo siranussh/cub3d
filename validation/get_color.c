@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:58:09 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 13:49:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:08:25 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	check_rgb(char **rgb)
 	return (1);
 }
 
-void	get_color(t_map *m, char *map_line, char type)
+void	get_color(t_game *game, char *map_line, char type)
 {
 	int		r;
 	int		g;
@@ -70,34 +70,34 @@ void	get_color(t_map *m, char *map_line, char type)
 	if (check_rgb(color_rgb) == 0)
 	{
 		ft_free(color_rgb);
-		free_map_print_error(m, "Error: Invalid rgb values\n");
+		free_and_print_error(game, "Error: Invalid rgb values\n");
 	}
 	r = ft_atoi(color_rgb[0]);
 	g = ft_atoi(color_rgb[1]);
 	b = ft_atoi(color_rgb[2]);
 	ft_free(color_rgb);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		free_map_print_error(m, "Error: Invalid rgb values\n");
+		free_and_print_error(game, "Error: Invalid rgb values\n");
 	if (type == 'F')
-		m->floor_color = r * 65536 + g * 256 + b;
+		game->map->floor_color = r * 65536 + g * 256 + b;
 	if (type == 'C')
-		m->ceiling_color = r * 65536 + g * 256 + b;
+		game->map->ceiling_color = r * 65536 + g * 256 + b;
 }
 
-void	get_c_color(t_map *m, char *map_line)
+void	get_c_color(t_game *game, char *map_line)
 {
-	if (m->ceiling_color != -1)
-		free_map_print_error(m, "Error: Duplicate ceiling color\n");
+	if (game->map->ceiling_color != -1)
+		free_and_print_error(game, "Error: Duplicate ceiling color\n");
 	map_line++;
 	map_line = ignore_spaces(map_line);
-	get_color(m, map_line, 'C');
+	get_color(game, map_line, 'C');
 }
 
-void	get_f_color(t_map *m, char *map_line)
+void	get_f_color(t_game *game, char *map_line)
 {
-	if (m->floor_color != -1)
-		free_map_print_error(m, "Error: Duplicate floor color\n");
+	if (game->map->floor_color != -1)
+		free_and_print_error(game, "Error: Duplicate floor color\n");
 	map_line++;
 	map_line = ignore_spaces(map_line);
-	get_color(m, map_line, 'F');
+	get_color(game, map_line, 'F');
 }

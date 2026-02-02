@@ -40,7 +40,7 @@ OBJ = $(OBJ_VALID) $(OBJ_FILES) $(OBJ_RAYCASTING)
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 MLX_DIR = mlx
 MLX_FLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm

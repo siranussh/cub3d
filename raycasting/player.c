@@ -1,4 +1,4 @@
-#include "raycasting.h"
+#include "../includes/cub3d.h"
 
 void init_player(t_player *player)
 {
