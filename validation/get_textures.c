@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 17:30:02 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/25 17:30:13 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/02 13:51:30 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/02 13:51:31 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -75,7 +75,7 @@ void	get_so_texture(t_map *m, char *map_line)
 	m->so_tx = get_texture_path(map_line);
 	if (!if_tx_path_valid(m->so_tx))
 	{
-		free_map(m);	
+		free_map(m);
 		print_error("Error: Invalid SO texture\n");
 	}
 }

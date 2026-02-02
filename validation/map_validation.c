@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 12:20:12 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:53:33 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	map_validation(t_map *m)
 {
-	char **map_copy;
+	char	**map_copy;
 
 	map_copy = NULL;
 	m->map_size = double_arr_size(m->map);
@@ -39,4 +39,3 @@ void	map_validation(t_map *m)
 	if (m->is_open)
 		free_map_print_error(m, "Error: Map isn't properly enclosed\n");
 }
-

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 15:13:39 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:48:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -29,6 +29,8 @@ void	parse_params(t_map *m, char *map_line)
 		get_c_color(m, trimmed);
 	else if (ft_strncmp(trimmed, "F", 1) == 0)
 		get_f_color(m, trimmed);
+	else if (str_is_only_spaces(trimmed))
+		return ;
 	else
 	{
 		free_map(m);

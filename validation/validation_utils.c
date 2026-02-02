@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 17:34:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/01/26 14:11:45 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:54:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ignore_spaces(char *str)
 		if (ft_isspace(*str) == 1)
 			str++;
 		else
-			break;
+			break ;
 	}
 	return (str);
 }
