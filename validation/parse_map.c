@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 12:06:37 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/03 16:35:21 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	parse_map(t_game *game, int fd, char *line)
 	game->map->map_line = ft_substr(line, index, ft_strlen(line));
 	free(line);
 	close(fd);
-	ensure_no_empty_map_lines(game, game->map->map_line);
 	game->map->params = ft_split(game->map->param_line, '\n');
 	i = 0;
 	while (game->map->params[i])
@@ -85,6 +84,7 @@ void	parse_map(t_game *game, int fd, char *line)
 		free_and_print_error(game, "Error: Missing texture\n");
 	if (game->map->floor_color == -1 || game->map->ceiling_color == -1)
 		free_and_print_error(game, "Error: Missing floor or ceiling color\n");
+	// ensure_no_empty_map_lines(game, game->map->map_line);
 	game->map->map = ft_split(game->map->map_line, '\n');
 	if (!game->map->map || !*(game->map->map))
 		free_and_print_error(game, "Error: Map doesn't exist\n");

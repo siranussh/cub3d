@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:58:09 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 16:08:25 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/03 16:34:29 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ static int	check_rgb(char **rgb)
 	return (1);
 }
 
+static int	count_commas(char *line)
+{
+	int	i;
+	int	count;
+
+	if (!line)
+		return (-1);
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 void	get_color(t_game *game, char *map_line, char type)
 {
 	int		r;
@@ -66,8 +84,15 @@ void	get_color(t_game *game, char *map_line, char type)
 	r = 0;
 	g = 0;
 	b = 0;
+	if (count_commas(map_line) != 2)
+		free_and_print_error(game, "Error: Invalid rgb values\n");
 	color_rgb = ft_split(map_line, ',');
 	if (check_rgb(color_rgb) == 0)
+	{
+		ft_free(color_rgb);
+		free_and_print_error(game, "Error: Invalid rgb values\n");
+	}
+	if (double_arr_size(color_rgb) != 3)
 	{
 		ft_free(color_rgb);
 		free_and_print_error(game, "Error: Invalid rgb values\n");
