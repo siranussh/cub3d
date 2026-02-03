@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:52:05 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 13:52:07 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/03 11:39:34 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_space_adjacent(char **map, int map_size, int longest_line)
 		j = 0;
 		while (j < longest_line)
 		{
-			if (map[i][j] == '6' || map[i][j] == ' ')
+			if (map[i][j] == '6' || map[i][j] == ' ' || map[i][j] == '\t')
 			{
 				if ((i > 0 && is_walkable(map[i - 1][j]))
 					|| (i < map_size - 1 && is_walkable(map[i + 1][j]))

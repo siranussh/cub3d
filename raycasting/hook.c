@@ -4,7 +4,7 @@
 int	handle_destroy(t_game *game)
 {
 	free_game(game);
-	exit (0);
+	exit(0);
 }
 
 void	free_game(t_game *game)
@@ -22,6 +22,8 @@ void	free_game(t_game *game)
 	}
 	if (game->map)
 		free_map(game->map);
+	if (game)
+		free(game);
 }
 
 void	close_game(t_game *game)
@@ -39,5 +41,7 @@ void	close_game(t_game *game)
 	}
 	if (game->map)
 		free_map(game->map);
+	if (game)
+		free(game);
 	exit(0);
 }

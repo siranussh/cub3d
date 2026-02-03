@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 18:09:07 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:21:36 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 # include <stdio.h> // perror()
 # include <string.h> // strerror()
 # include <sys/time.h> // gettimeofday()
-#include <stdbool.h>
-#include <math.h>
-#include "mlx.h"
+# include <stdbool.h>
+# include <math.h>
+# include "mlx.h"
 
 typedef struct s_map
 {
@@ -68,29 +68,29 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	float x;
-	float y;
-	float angle;
-	bool key_up;
-	bool key_down;
-	bool key_left;
-	bool key_right;
-	bool left_rotate;
-	bool right_rotate;
-} t_player;
+	float	x;
+	float	y;
+	float	angle;
+	bool	key_up;
+	bool	key_down;
+	bool	key_left;
+	bool	key_right;
+	bool	left_rotate;
+	bool	right_rotate;
+}	t_player;
 
 typedef struct s_game
 {
-	void *mlx;
-	void *window;
-	void *img;
-	char *data;
-	int bpp;
-	int size_line;
-	int endian;
-	t_player player;
-	t_map *map;
-} t_game;
+	void		*mlx;
+	void		*window;
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	t_player	player;
+	t_map		*map;
+}	t_game;
 
 /******************* VALIDATION *************************/
 // validation_utils.c
@@ -154,36 +154,34 @@ void	map_validation(t_game *game);
 // validation.c
 void	validation(int argc, char **argv, t_game *game);
 
-/**************************************************/
+/********************************************************/
 
-
-/****************** RAYCASTING ********************/
+/********************* RAYCASTING ***********************/
 //player.c
-void    init_player(t_player *player);
-int     key_press(int keycode, t_game *game);
-int     key_release(int keycode , t_game *game);
-void    move_player(t_player *player, t_game *game);
-void normalize_angle(float *angle);
+void	init_player(t_player *player);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+void	move_player(t_player *player, t_game *game);
+void	normalize_angle(float *angle);
 
 //raycasting.c
 void	put_pixel(int x, int y, int color, t_game *game);
-void 	clear_image(t_game *game);
+void	clear_image(t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
 t_game	*init_game(void);
-void init_mlx(t_game *game);
+void	init_mlx(t_game *game);
 int		draw_loop(t_game *game);
 bool	touch(float px, float py, t_game *game);
 
-
 //player_movement.c
-void update_player_position(t_player *player, int speed, t_game *game);
+void	update_player_position(t_player *player, int speed, t_game *game);
 
 //hook.c
 int		handle_destroy(t_game *game);
 void	free_game(t_game *game);
 void	close_game(t_game *game);
 
-/**************************************************/
+/********************************************************/
 
 // utils.c
 int		double_arr_size(char **arr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 16:18:59 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:07:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	map_validation(t_game *game)
 {
 	char	**map_copy;
 
-	map_copy = NULL;
 	game->map->map_size = double_arr_size(game->map->map);
 	if (!check_if_only_ones(game->map->map, 0)
 		|| !check_if_only_ones(game->map->map, game->map->map_size - 1))
@@ -27,9 +26,11 @@ void	map_validation(t_game *game)
 		free_and_print_error(game,
 			"Error: Map must contain one player position\n");
 	game->map->rect_map = make_map_rect(game->map);
-	if (!check_edges(game->map->rect_map, game->map->map_size, game->map->longest_line))
+	if (!check_edges(game->map->rect_map, game->map->map_size,
+			game->map->longest_line))
 		free_and_print_error(game, "Error: Map isn't properly enclosed\n");
-	if (!check_space_adjacent(game->map->rect_map, game->map->map_size, game->map->longest_line))
+	if (!check_space_adjacent(game->map->rect_map, game->map->map_size,
+			game->map->longest_line))
 		free_and_print_error(game, "Error: Map isn't properly enclosed\n");
 	player_position(game->map);
 	map_copy = copy_map(game->map);

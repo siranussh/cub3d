@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:51:46 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 13:51:48 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/03 11:42:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	flood_fill(t_map *m, char **map, int y, int x)
 		m->is_open = 1;
 		return ;
 	}
-	if (map[y][x] == '6' || map[y][x] == ' ')
+	if (map[y][x] == '6' || map[y][x] == ' ' || map[y][x] == '\t')
 	{
 		m->is_open = 1;
 		return ;

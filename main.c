@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:06:35 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 18:07:12 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:29:03 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv)
 {
-    t_game	*game;
+	t_game	*game;
 
 	game = init_game();
 	game->map = init_map();

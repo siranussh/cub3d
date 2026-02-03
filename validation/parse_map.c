@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 16:28:01 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/03 12:06:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	parse_map(t_game *game, int fd, char *line)
 		parse_params(game, game->map->params[i]);
 		i++;
 	}
-	if (!game->map->no_tx || !game->map->ea_tx || !game->map->we_tx || !game->map->so_tx)
+	if (!game->map->no_tx || !game->map->ea_tx || !game->map->we_tx
+		|| !game->map->so_tx)
 		free_and_print_error(game, "Error: Missing texture\n");
 	if (game->map->floor_color == -1 || game->map->ceiling_color == -1)
 		free_and_print_error(game, "Error: Missing floor or ceiling color\n");
