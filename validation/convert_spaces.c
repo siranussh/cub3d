@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:44:19 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/04 14:44:22 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:44:29 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	mark_outside_spaces(char **copy, t_map *m, int y, int x)
 
 void	convert_enclosed_spaces(t_map *m)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**copy;
 
 	if (!m || !m->rect_map)
@@ -51,14 +51,13 @@ void	convert_enclosed_spaces(t_map *m)
 		i++;
 	}
 	copy[i] = NULL;
-
-	/* Flood from all four edges to mark outside spaces */
 	i = 0;
 	while (i < m->map_size)
 	{
 		if (copy[i][0] == '6' || copy[i][0] == ' ' || copy[i][0] == '\t')
 			mark_outside_spaces(copy, m, i, 0);
-		if (copy[i][m->longest_line - 1] == '6' || copy[i][m->longest_line - 1] == ' '
+		if (copy[i][m->longest_line - 1] == '6'
+			|| copy[i][m->longest_line - 1] == ' '
 			|| copy[i][m->longest_line - 1] == '\t')
 			mark_outside_spaces(copy, m, i, m->longest_line - 1);
 		i++;
@@ -73,8 +72,6 @@ void	convert_enclosed_spaces(t_map *m)
 			mark_outside_spaces(copy, m, m->map_size - 1, j);
 		j++;
 	}
-
-	/* Any space/tab/'6' that wasn't marked is enclosed -> convert to '0' */
 	i = 0;
 	while (i < m->map_size)
 	{
@@ -88,13 +85,5 @@ void	convert_enclosed_spaces(t_map *m)
 		}
 		i++;
 	}
-
-	/* cleanup */
-	i = 0;
-	while (i < m->map_size)
-	{
-		free(copy[i]);
-		i++;
-	}
-	free(copy);
+	ft_free(copy);
 }

@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/04 14:43:54 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:36:58 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,14 @@ void	get_ea_texture(t_game *game, char *map_line);
 void	get_we_texture(t_game *game, char *map_line);
 void	get_so_texture(t_game *game, char *map_line);
 
+// get_color_utils.c
+int		check_rgb(char **rgb);
+int		count_commas(char *line);
+int		is_only_digits(char *color_rgb);
+
 // get_color.c
+int		parse_rgb(t_game *game, char *map_line);
+void	get_color(t_game *game, char *line, char type);
 void	get_color(t_game *game, char *map_line, char type);
 void	get_c_color(t_game *game, char *map_line);
 void	get_f_color(t_game *game, char *map_line);

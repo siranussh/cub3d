@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:51:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/02 13:51:41 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/05 13:59:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*get_texture_path(char *map)
 {
 	char	*path;
 	int		texture_len;
+	int		i;
 
 	if (!map || !*map)
 		return (NULL);
@@ -42,13 +43,18 @@ char	*get_texture_path(char *map)
 	texture_len = texture_path_len(map);
 	if (texture_len == 0)
 		return (NULL);
+	i = texture_len;
+	while (map[i])
+	{
+		if (!ft_isspace(map[i]))
+			return (NULL);
+		i++;
+	}
 	path = (char *)malloc(texture_len + 1);
 	if (!path)
 		return (NULL);
-	ft_strncpy(path, map, texture_len);
+	ft_memcpy(path, map, texture_len);
 	path[texture_len] = '\0';
-	if (!path)
-		return (NULL);
 	return (path);
 }
 

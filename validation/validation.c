@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 15:54:22 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 16:35:06 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/05 14:02:13 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	validation(int argc, char **argv, t_game *game)
 	char	*line;
 
 	if (argc != 2)
-		free_and_print_error(game, "Error: Wrong Arguments.\nUsage: ./cub3D map.cub\n");
+		free_and_print_error(game,
+			"Error: Wrong Arguments.\nUsage: ./cub3D map.cub\n");
 	if (!valid_path(argv[1], ".cub"))
 		free_and_print_error(game, "Error: Invalid path.\n");
 	fd = open(argv[1], O_RDONLY);

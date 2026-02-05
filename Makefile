@@ -11,6 +11,7 @@ SRC_VALID = read_map.c \
 			validation_utils.c \
 			get_textures_utils.c \
 			get_textures.c \
+			get_color_utils.c \
 			get_color.c \
 			parse_map.c \
 			flood_fill.c \
