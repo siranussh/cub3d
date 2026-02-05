@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:59:33 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 12:07:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:43:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	map_validation(t_game *game)
 		free_and_print_error(game,
 			"Error: Map must contain one player position\n");
 	game->map->rect_map = make_map_rect(game->map);
+	convert_enclosed_spaces(game->map);
 	if (!check_edges(game->map->rect_map, game->map->map_size,
 			game->map->longest_line))
 		free_and_print_error(game, "Error: Map isn't properly enclosed\n");

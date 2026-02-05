@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:58:09 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 16:34:29 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:05:28 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	get_color(t_game *game, char *map_line, char type)
 		ft_free(color_rgb);
 		free_and_print_error(game, "Error: Invalid rgb values\n");
 	}
-	r = ft_atoi(color_rgb[0]);
+	r	 = ft_atoi(color_rgb[0]);
 	g = ft_atoi(color_rgb[1]);
 	b = ft_atoi(color_rgb[2]);
 	ft_free(color_rgb);

@@ -5,7 +5,9 @@ WE ./textures/redbrick.xpm
 EA ./textures/purplestone.xpm
 
 C 0,0,0
-F 50,50,50
+
+
+F 50,50, 50
 
 
 

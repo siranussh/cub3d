@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 12:21:36 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:43:54 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,9 @@ int		check_space_adjacent(char **map, int map_size, int longest_line);
 // map_manipulation.c
 char	**copy_map(t_map *m);
 char	**make_map_rect(t_map *m);
+
+// convert_spaces.c
+void	convert_enclosed_spaces(t_map *m);
 
 // map_validation.c
 void	map_validation(t_game *game);
