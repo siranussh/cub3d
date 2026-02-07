@@ -49,49 +49,6 @@ int	key_release(int keycode, t_game *game)
 	return (0);
 }
 
-// void	move_player(t_player *player)
-// {
-// 	int speed;
-//     float angle_speed;
-//     float cos_angle;
-//     float sin_angle;
-
-//     cos_angle= cos(player->angle);
-//     sin_angle = sin(player->angle);
-// 	speed = 5;
-//     angle_speed = 0.1;
-
-//     if (player->left_rotate)
-//         player->angle -= angle_speed;
-//     if (player->right_rotate)
-//         player->angle += angle_speed;
-//     if (player->angle > 2 * PI) //when angle goes too big you completed a full circle,wrap back to start
-//         player->angle = 0;
-//     if (player->angle < 0)//wrap to the end of the circle PI-half circle and 2 * PI ->full circle
-//         player->angle = 2 * PI;
-
-//     if (player->key_up)
-//     {
-//         player->x += cos_angle * speed;
-//         player->y += sin_angle * speed;
-//     }
-//     if (player->key_down)
-//     {
-//         player->x -= cos_angle * speed;
-//         player->y -= sin_angle * speed;
-//     }
-//     if (player->key_left)
-//     {
-//         player->x += sin_angle * speed;
-//         player->y -= cos_angle * speed;
-//     }
-//     if (player->key_right)
-//     {
-//         player->x -= sin_angle * speed;
-//         player->y += cos_angle * speed;
-//     }
-// }
-
 void	normalize_angle(float *angle)
 {
 	while (*angle < 0)
@@ -108,55 +65,6 @@ void	update_player_rotation(t_player *player, float angle_speed)
 		player->angle += angle_speed;
 	normalize_angle(&player->angle);
 }
-
-// void update_player_position(t_player *player, int speed, t_game *game)
-// {
-//     float cos_angle;
-//     float sin_angle;
-//     float move_x;
-//     float move_y;
-//     float len;
-//     float new_x;
-//     float new_y;
-
-//     cos_angle = cos(player->angle);
-//     sin_angle = sin(player->angle);
-//     move_x = 0;
-//     move_y = 0;
-//     if (player->key_up)
-//     {
-//         move_x += cos_angle;
-//         move_y += sin_angle;
-//     }
-//     if (player->key_down)
-//     {
-//         move_x -= cos_angle;
-//         move_y -= sin_angle;
-//     }
-//     if (player->key_left)
-//     {
-//         move_x += sin_angle;
-//         move_y -= cos_angle;
-//     }
-//     if (player->key_right)
-//     {
-//         move_x -= sin_angle;
-//         move_y += cos_angle;
-//     }
-//     len = sqrt(move_x * move_x + move_y * move_y);
-//     if (len > 0)
-//     {
-//         move_x /= len;
-//         move_y /= len;
-//     }
-//     new_x = player->x + move_x * speed;
-//     new_y = player->y + move_y * speed;
-
-//     if (!touch(new_x, player->y, game))
-//         player->x = new_x;
-//     if (!touch(player->x, new_y, game))
-//         player->y = new_y;
-// }
 
 void move_player(t_player *player, t_game *game)
 {
