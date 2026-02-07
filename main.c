@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:06:35 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/06 14:53:48 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:16:40 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
+
+void	update_player_values(t_game *game)
+{
+	game->player.x = game->map->player_x * BLOCK + BLOCK / 2;
+	game->player.y = game->map->player_y * BLOCK + BLOCK / 2;
+	
+}
+
 
 int main(int argc, char **argv)
 {
@@ -19,6 +27,7 @@ int main(int argc, char **argv)
 	game = init_game();
 	game->map = init_map();
 	validation(argc, argv, game);
+	update_player_values(game);
 	init_mlx(game);
 	// mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	mlx_hook(game->window, 2, 1L<<0, key_press, game);//1L<<0 this is bitmask for key press

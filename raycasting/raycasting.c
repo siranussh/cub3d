@@ -39,12 +39,12 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 
 t_game *init_game(void)
 {
-    t_game *game = ft_calloc(1, sizeof(t_game));
-    if (!game)
-        print_error("Error: malloc failed\n");
+	t_game *game = ft_calloc(1, sizeof(t_game));
+	if (!game)
+		print_error("Error: malloc failed\n");
 
-    init_player(&game->player);
-    return game;
+	init_player(&game->player);
+    return (game);
 }
 
 void	init_mlx(t_game *game)
