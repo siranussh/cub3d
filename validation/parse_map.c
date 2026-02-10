@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/07 13:23:09 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/10 13:08:19 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	ensure_no_empty_map_lines(t_game *game, const char *map_line)
 {
 	int	i;
 	int	line_has_content;
+	int	map_started;
+	int	empty_line_after_map_start;
 
 	i = 0;
-	line_has_content = 0;
-	// printf("[%s]", map_line);//////////////
+	map_started = 0;
+	empty_line_after_map_start = 0;
 	while (map_line && map_line[i])
 	{
 		line_has_content = 0;
@@ -55,8 +57,12 @@ void	ensure_no_empty_map_lines(t_game *game, const char *map_line)
 				line_has_content = 1;
 			i++;
 		}
-		if (!line_has_content)
+		if (line_has_content && empty_line_after_map_start)
 			free_and_print_error(game, "Error: Empty line inside map\n");
+		if (line_has_content)
+			map_started = 1;
+		else if (map_started)
+			empty_line_after_map_start = 1;
 		if (map_line[i] == '\n')
 			i++;
 	}
