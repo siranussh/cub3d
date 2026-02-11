@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 14:06:35 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/07 17:16:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/11 13:16:20 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 void	update_player_values(t_game *game)
 {
+	char map_c;
+
 	game->player.x = game->map->player_x * BLOCK + BLOCK / 2;
 	game->player.y = game->map->player_y * BLOCK + BLOCK / 2;
-	
+	map_c = game->map->rect_map[game->map->player_y][game->map->player_x];
+	if (map_c == 'N')
+		game->player.angle = 3 * PI / 2;
+	else if (map_c == 'S')
+		game->player.angle = PI / 2;
+	else if (map_c == 'E')
+		game->player.angle = 0;
+	else if (map_c == 'W')
+		game->player.angle = PI;
+	game->map->rect_map[game->map->player_y][game->map->player_x] = '0';
 }
 
 
