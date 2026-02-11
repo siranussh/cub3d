@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 13:10:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/10 13:08:19 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/11 21:19:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -38,33 +38,44 @@ void	parse_params(t_game *game, char *map_line)
 	}
 }
 
+static int	check_line_content(const char *map_line, int *i)
+{
+	int	has_content;
+
+	has_content = 0;
+	while (map_line[*i] && map_line[*i] != '\n')
+	{
+		if (!ft_isspace(map_line[*i]))
+			has_content = 1;
+		(*i)++;
+	}
+	if (map_line[*i] == '\n')
+		(*i)++;
+	return (has_content);
+}
+
 void	ensure_no_empty_map_lines(t_game *game, const char *map_line)
 {
 	int	i;
-	int	line_has_content;
 	int	map_started;
-	int	empty_line_after_map_start;
+	int	empty_seen;
+	int	has_content;
 
 	i = 0;
 	map_started = 0;
-	empty_line_after_map_start = 0;
+	empty_seen = 0;
 	while (map_line && map_line[i])
 	{
-		line_has_content = 0;
-		while (map_line[i] && map_line[i] != '\n')
+		has_content = check_line_content(map_line, &i);
+		if (has_content)
 		{
-			if (!ft_isspace(map_line[i]))
-				line_has_content = 1;
-			i++;
-		}
-		if (line_has_content && empty_line_after_map_start)
-			free_and_print_error(game, "Error: Empty line inside map\n");
-		if (line_has_content)
+			if (empty_seen && map_started)
+				free_and_print_error(game, "Error: Empty line inside map\n");
 			map_started = 1;
+			empty_seen = 0;
+		}
 		else if (map_started)
-			empty_line_after_map_start = 1;
-		if (map_line[i] == '\n')
-			i++;
+			empty_seen = 1;
 	}
 }
 
