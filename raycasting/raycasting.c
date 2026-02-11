@@ -7,9 +7,10 @@ void put_pixel(int x, int y, int color, t_game *game)
 	if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
 		return ;
 	index = y * game->size_line + x * game->bpp / 8;
-	game->data[index] = color & 0xFF;          // Blue
-	game->data[index + 1] = (color >> 8) & 0xFF;  // Green
-	game->data[index + 2] = (color >> 16) & 0xFF; // Red
+	*(unsigned int *)(game->data + index) = color;
+	// game->data[index] = color & 0xFF;          // Blue
+	// game->data[index + 1] = (color >> 8) & 0xFF;  // Green
+	// game->data[index + 2] = (color >> 16) & 0xFF; // Red
 }
 
 void draw_map(t_game *game)
@@ -103,13 +104,13 @@ float cast_ray(t_player *player, t_game *game, float angle)
 	float	ray_y = player->y;
 	float	cos_angle = cos(angle);
 	float	sin_angle = sin(angle);
-
+	float step = 0.1;
 	normalize_angle(&player->angle);
 
 	while (!touch(ray_x, ray_y, game))
 	{
-		ray_x += cos_angle;
-		ray_y += sin_angle;
+		ray_x += cos_angle * step;
+		ray_y += sin_angle * step;
 	}
 	return fixed_dist(player->x, player->y, ray_x, ray_y, game);
 }
@@ -150,7 +151,6 @@ int draw_loop(t_game *game)
         start_x += fraction;
         i++;
     }
-
     mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
     return 0;
 }
