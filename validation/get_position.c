@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_position.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 15:14:29 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 14:29:32 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/02 13:51:58 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/07 16:00:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -21,7 +21,7 @@ void	player_position(t_map *map)
 	while (j < map->map_size)
 	{
 		i = 0;
-		while (i < map->longest_line)
+		while (i < (int)ft_strlen(map->rect_map[j]))
 		{
 			if (map->rect_map[j][i] == 'N' || map->rect_map[j][i] == 'S'
 				|| map->rect_map[j][i] == 'E' || map->rect_map[j][i] == 'W')

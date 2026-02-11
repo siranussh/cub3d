@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/01 15:19:11 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 15:21:48 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/02 13:52:55 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/11 21:25:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -43,7 +43,7 @@ int	if_valid_chars(char **map)
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W'
-				&& map[i][j] != ' ')
+				&& map[i][j] != ' ' && map[i][j] != '\t')
 				return (0);
 			j++;
 		}

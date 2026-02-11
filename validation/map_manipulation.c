@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   map_manipulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/30 16:58:26 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/01 15:10:46 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/02 13:53:19 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/03 12:04:59 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -37,11 +37,34 @@ char	**copy_map(t_map *m)
 	return (map_copy);
 }
 
+static void	free_map_rect(char **map_rect, int i)
+{
+	while (i-- > 0)
+		free(map_rect[i]);
+	free(map_rect);
+}
+
+static void	fill_map_row(char *dst, char *src, int longest_line)
+{
+	int	j;
+	int	row_len;
+
+	row_len = ft_strlen(src);
+	j = 0;
+	while (j < longest_line)
+	{
+		if (j >= row_len || src[j] == ' ' || src[j] == '\t')
+			dst[j] = '6';
+		else
+			dst[j] = src[j];
+		j++;
+	}
+	dst[j] = '\0';
+}
+
 char	**make_map_rect(t_map *m)
 {
 	int		i;
-	int		j;
-	int		row_len;
 	char	**map_rect;
 
 	if (!m || !m->map)
@@ -57,26 +80,10 @@ char	**make_map_rect(t_map *m)
 	{
 		map_rect[i] = (char *)malloc(sizeof(char) * (m->longest_line + 1));
 		if (!map_rect[i])
-		{
-			while (i-- > 0)
-				free(map_rect[i]);
-			free(map_rect);
-			return (NULL);
-		}
-		row_len = ft_strlen(m->map[i]);
-		j = 0;
-		while (j < m->longest_line)
-		{
-			if (j >= row_len || m->map[i][j] == ' ')
-				map_rect[i][j] = '6';
-			else
-				map_rect[i][j] = m->map[i][j];
-			j++;
-		}
-		map_rect[i][j] = '\0';
+			return (free_map_rect(map_rect, i), NULL);
+		fill_map_row(map_rect[i], m->map[i], m->longest_line);
 		i++;
 	}
 	map_rect[i] = NULL;
 	return (map_rect);
 }
-
