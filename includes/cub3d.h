@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/11 15:28:35 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/11 22:54:53 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -46,24 +46,39 @@
 # include <math.h>
 # include "mlx.h"
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_texture;
+
 typedef struct s_map
 {
-	char	*no_tx;// no texture path
-	char	*ea_tx;// ea texture path
-	char	*we_tx;// we texture path
-	char	*so_tx;// so texture path
-	int		floor_color;
-	int		ceiling_color;
-	char	*param_line;// textures, colors line
-	char	*map_line;// containing only map
-	char	**params;// textures, colors
-	char	**map;// map for Siran
-	char	**rect_map;
-	int		map_size;// height
-	int		longest_line;// width
-	int		is_open;
-	int		player_x;
-	int		player_y;
+	char		*no_tx;// no texture path
+	char		*ea_tx;// ea texture path
+	char		*we_tx;// we texture path
+	char		*so_tx;// so texture path
+	t_texture	no_img;
+	t_texture	ea_img;
+	t_texture	we_img;
+	t_texture	so_img;
+	int			floor_color;
+	int			ceiling_color;
+	char		*param_line;// textures, colors line
+	char		*map_line;// containing only map
+	char		**params;// textures, colors
+	char		**map;// map for Siran
+	char		**rect_map;
+	int			map_size;// height
+	int			longest_line;// width
+	int			is_open;
+	int			player_x;
+	int			player_y;
 }	t_map;
 
 typedef struct s_player
@@ -92,6 +107,13 @@ typedef struct s_game
 	t_map		*map;
 }	t_game;
 
+typedef struct s_ray_info// newwww
+{
+	float		dist;
+	t_texture	*texture;
+	float		wall_x;
+}	t_ray_info;
+
 /******************* VALIDATION *************************/
 // validation_utils.c
 int		ft_isspace(int a);
@@ -113,6 +135,8 @@ void	get_no_texture(t_game *game, char *map_line);
 void	get_ea_texture(t_game *game, char *map_line);
 void	get_we_texture(t_game *game, char *map_line);
 void	get_so_texture(t_game *game, char *map_line);
+void	load_textures(t_game *game);
+int		get_texture_pixel(t_texture *texture, int x, int y);
 
 // get_color_utils.c
 int		check_rgb(char **rgb);

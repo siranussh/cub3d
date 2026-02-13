@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_textures_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:51:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/05 13:59:56 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/11 22:17:32 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/cub3d.h"
 
@@ -60,7 +60,7 @@ char	*get_texture_path(char *map)
 
 int	if_tx_path_valid(char *path)
 {
-	// int	fd;
+	int	fd;
 
 	if (!path)
 		return (0);
@@ -68,9 +68,9 @@ int	if_tx_path_valid(char *path)
 		return (0);
 	if (!valid_path(path, ".xpm"))
 		return (0);
-	// fd = open(path, O_RDONLY);
-	// if (fd < 0)
-	// 	return (0);
-	// close(fd);
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
 	return (1);
 }
