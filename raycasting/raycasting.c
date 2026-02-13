@@ -8,22 +8,30 @@ void put_pixel(int x, int y, int color, t_game *game)
 		return ;
 	index = y * game->size_line + x * game->bpp / 8;
 	*(unsigned int *)(game->data + index) = color;
-	// game->data[index] = color & 0xFF;          // Blue
-	// game->data[index + 1] = (color >> 8) & 0xFF;  // Green
-	// game->data[index + 2] = (color >> 16) & 0xFF; // Red
 }
 
 void draw_map(t_game *game)
 {
-	char	**map = game->map->rect_map;
-	int		color = 0x0000FF;
+	char	**map;
+	int		color;
+	int		x;
+	int		y;
 
-	for (int y = 0; y < game->map->map_size; y++)
-		for (int x = 0; x < game->map->longest_line; x++)
+	y = 0;
+	color = 0x0000FF;
+	map = game->map->rect_map;
+	while (y < game->map->map_size)
+	{
+		x = 0;
+		while (x < game->map->longest_line)
+		{
 			if (map[y][x] == '1')
 				draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
+			x++;
+		}
+		y++;
+	}
 }
-
 
 void	clear_image(t_game *game)
 {
@@ -32,17 +40,29 @@ void	clear_image(t_game *game)
 
 void draw_square(int x, int y, int size, int color, t_game *game)
 {
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
 			put_pixel(x + i, y + j, color, game);
+			j++;
+		}
+		i++;
+	}
 }
 
 t_game *init_game(void)
 {
-	t_game *game = ft_calloc(1, sizeof(t_game));
+	t_game *game;
+
+	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 		print_error("Error: malloc failed\n");
-
 	init_player(&game->player);
 	return (game);
 }
