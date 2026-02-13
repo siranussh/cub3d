@@ -101,47 +101,107 @@ float	fixed_dist(float x1, float y1, float x2, float y2, t_game *game)
 
 t_ray_info	cast_ray(t_player *player, t_game *game, float angle)
 {
-	float		ray_x = player->x;
-	float		ray_y = player->y;
-	float		cos_angle = cos(angle);
-	float		sin_angle = sin(angle);
-	float		step = 0.1;
 	t_ray_info	info;
+	float		pos_x;
+	float		pos_y;
+	float		ray_dir_x;
+	float		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	float		delta_dist_x;
+	float		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	float		side_dist_x;
+	float		side_dist_y;
+	int			hit;
+	int			side;
+	float		perp_dist;
+	float		hit_world_x;
 	float		wall_pos;
 
-	normalize_angle(&player->angle);
-	while (!touch(ray_x, ray_y, game))
+	// DDA raycasting in grid (tile) coordinates for precise wall hits
+	pos_x = player->x / (float)BLOCK;
+	pos_y = player->y / (float)BLOCK;
+	ray_dir_x = cosf(angle);
+	ray_dir_y = sinf(angle);
+	map_x = (int)floorf(pos_x);
+	map_y = (int)floorf(pos_y);
+	delta_dist_x = (ray_dir_x == 0.0f) ? 1e30f : fabsf(1.0f / ray_dir_x);
+	delta_dist_y = (ray_dir_y == 0.0f) ? 1e30f : fabsf(1.0f / ray_dir_y);
+	if (ray_dir_x < 0)
 	{
-		ray_x += cos_angle * step;
-		ray_y += sin_angle * step;
-	}
-	info.dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
-	
-	// Determine which wall was hit and assign texture + calculate wall_x
-	if (!touch(ray_x - BLOCK, ray_y, game))
-	{
-		info.texture = &game->map->ea_img;
-		wall_pos = fmod(ray_y, BLOCK);
-	}
-	else if (!touch(ray_x + BLOCK, ray_y, game))
-	{
-		info.texture = &game->map->we_img;
-		wall_pos = fmod(ray_y, BLOCK);
-	}
-	else if (!touch(ray_x, ray_y - BLOCK, game))
-	{
-		info.texture = &game->map->so_img;
-		wall_pos = fmod(ray_x, BLOCK);
+		step_x = -1;
+		side_dist_x = (pos_x - map_x) * delta_dist_x;
 	}
 	else
 	{
-		info.texture = &game->map->no_img;
-		wall_pos = fmod(ray_x, BLOCK);
+		step_x = 1;
+		side_dist_x = (map_x + 1.0f - pos_x) * delta_dist_x;
 	}
-	
+	if (ray_dir_y < 0)
+	{
+		step_y = -1;
+		side_dist_y = (pos_y - map_y) * delta_dist_y;
+	}
+	else
+	{
+		step_y = 1;
+		side_dist_y = (map_y + 1.0f - pos_y) * delta_dist_y;
+	}
+	hit = 0;
+	side = 0;
+	while (!hit)
+	{
+		if (side_dist_x < side_dist_y)
+		{
+			side_dist_x += delta_dist_x;
+			map_x += step_x;
+			side = 0;
+		}
+		else
+		{
+			side_dist_y += delta_dist_y;
+			map_y += step_y;
+			side = 1;
+		}
+		if (map_y < 0 || map_x < 0 || map_y >= game->map->map_size
+			|| map_x >= game->map->longest_line)
+		{
+			hit = 1;
+			break ;
+		}
+		if (game->map->rect_map[map_y][map_x] == '1')
+			hit = 1;
+	}
+	if (side == 0)
+		perp_dist = (map_x - pos_x + (1 - step_x) / 2.0f)
+			/ (ray_dir_x == 0.0f ? 1e-6f : ray_dir_x);
+	else
+		perp_dist = (map_y - pos_y + (1 - step_y) / 2.0f)
+			/ (ray_dir_y == 0.0f ? 1e-6f : ray_dir_y);
+	info.dist = perp_dist * BLOCK;
+	if (side == 0)
+		hit_world_x = player->y + perp_dist * BLOCK * ray_dir_y;
+	else
+		hit_world_x = player->x + perp_dist * BLOCK * ray_dir_x;
+	wall_pos = fmodf(hit_world_x, (float)BLOCK);
 	if (wall_pos < 0)
 		wall_pos += BLOCK;
-	
+	if (side == 0)
+	{
+		if (ray_dir_x > 0)
+			info.texture = &game->map->we_img;
+		else
+			info.texture = &game->map->ea_img;
+	}
+	else
+	{
+		if (ray_dir_y > 0)
+			info.texture = &game->map->no_img;
+		else
+			info.texture = &game->map->so_img;
+	}
 	info.wall_x = wall_pos;
 	return (info);
 }
