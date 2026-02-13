@@ -44,7 +44,7 @@ t_game *init_game(void)
 		print_error("Error: malloc failed\n");
 
 	init_player(&game->player);
-    return (game);
+	return (game);
 }
 
 void	init_mlx(t_game *game)
@@ -99,109 +99,134 @@ float	fixed_dist(float x1, float y1, float x2, float y2, t_game *game)
 	return (fix_dist);
 }
 
+static void	init_dda(t_dda *dda, t_player *player, float angle)
+{
+	dda->pos_x = player->x / (float)BLOCK;
+	dda->pos_y = player->y / (float)BLOCK;
+	dda->ray_dir_x = cosf(angle);
+	dda->ray_dir_y = sinf(angle);
+	dda->map_x = (int)floorf(dda->pos_x);
+	dda->map_y = (int)floorf(dda->pos_y);
+	if (dda->ray_dir_x == 0.0f)
+		dda->delta_dist_x = 1e30f;
+	else
+		dda->delta_dist_x = fabsf(1.0f / dda->ray_dir_x);
+	if (dda->ray_dir_y == 0.0f)
+		dda->delta_dist_y = 1e30f;
+	else
+		dda->delta_dist_y = fabsf(1.0f / dda->ray_dir_y);
+}
+
+static void	calculate_step_and_side_dist(t_dda *dda)
+{
+	if (dda->ray_dir_x < 0)
+	{
+		dda->step_x = -1;
+		dda->side_dist_x = (dda->pos_x - dda->map_x) * dda->delta_dist_x;
+	}
+	else
+	{
+		dda->step_x = 1;
+		dda->side_dist_x = (dda->map_x + 1.0f - dda->pos_x)
+			* dda->delta_dist_x;
+	}
+	if (dda->ray_dir_y < 0)
+	{
+		dda->step_y = -1;
+		dda->side_dist_y = (dda->pos_y - dda->map_y) * dda->delta_dist_y;
+	}
+	else
+	{
+		dda->step_y = 1;
+		dda->side_dist_y = (dda->map_y + 1.0f - dda->pos_y)
+			* dda->delta_dist_y;
+	}
+}
+
+static int	perform_dda(t_dda *dda, t_game *game)
+{
+	int	hit;
+
+	hit = 0;
+	while (!hit)
+	{
+		if (dda->side_dist_x < dda->side_dist_y)
+		{
+			dda->side_dist_x += dda->delta_dist_x;
+			dda->map_x += dda->step_x;
+			dda->side = 0;
+		}
+		else
+		{
+			dda->side_dist_y += dda->delta_dist_y;
+			dda->map_y += dda->step_y;
+			dda->side = 1;
+		}
+		if (dda->map_y < 0 || dda->map_x < 0 || dda->map_y >= game->map->map_size
+			|| dda->map_x >= game->map->longest_line)
+			return (1);
+		if (game->map->rect_map[dda->map_y][dda->map_x] == '1')
+			hit = 1;
+	}
+	return (hit);
+}
+
+static float	calculate_perp_distance(t_dda *dda)
+{
+	float	perp_dist;
+
+	if (dda->side == 0)
+	{
+		perp_dist = (dda->map_x - dda->pos_x + (1 - dda->step_x) / 2.0f)
+			/ (dda->ray_dir_x == 0.0f ? 1e-6f : dda->ray_dir_x);
+	}
+	else
+	{
+		perp_dist = (dda->map_y - dda->pos_y + (1 - dda->step_y) / 2.0f)
+			/ (dda->ray_dir_y == 0.0f ? 1e-6f : dda->ray_dir_y);
+	}
+	return (perp_dist);
+}
+
+static void	determine_texture(t_ray_info *info, t_dda *dda, t_game *game)
+{
+	if (dda->side == 0)
+	{
+		if (dda->ray_dir_x > 0)
+			info->texture = &game->map->we_img;
+		else
+			info->texture = &game->map->ea_img;
+	}
+	else
+	{
+		if (dda->ray_dir_y > 0)
+			info->texture = &game->map->no_img;
+		else
+			info->texture = &game->map->so_img;
+	}
+}
+
 t_ray_info	cast_ray(t_player *player, t_game *game, float angle)
 {
 	t_ray_info	info;
-	float		pos_x;
-	float		pos_y;
-	float		ray_dir_x;
-	float		ray_dir_y;
-	int			map_x;
-	int			map_y;
-	float		delta_dist_x;
-	float		delta_dist_y;
-	int			step_x;
-	int			step_y;
-	float		side_dist_x;
-	float		side_dist_y;
-	int			hit;
-	int			side;
+	t_dda		dda;
 	float		perp_dist;
 	float		hit_world_x;
 	float		wall_pos;
 
-	// DDA raycasting in grid (tile) coordinates for precise wall hits
-	pos_x = player->x / (float)BLOCK;
-	pos_y = player->y / (float)BLOCK;
-	ray_dir_x = cosf(angle);
-	ray_dir_y = sinf(angle);
-	map_x = (int)floorf(pos_x);
-	map_y = (int)floorf(pos_y);
-	delta_dist_x = (ray_dir_x == 0.0f) ? 1e30f : fabsf(1.0f / ray_dir_x);
-	delta_dist_y = (ray_dir_y == 0.0f) ? 1e30f : fabsf(1.0f / ray_dir_y);
-	if (ray_dir_x < 0)
-	{
-		step_x = -1;
-		side_dist_x = (pos_x - map_x) * delta_dist_x;
-	}
-	else
-	{
-		step_x = 1;
-		side_dist_x = (map_x + 1.0f - pos_x) * delta_dist_x;
-	}
-	if (ray_dir_y < 0)
-	{
-		step_y = -1;
-		side_dist_y = (pos_y - map_y) * delta_dist_y;
-	}
-	else
-	{
-		step_y = 1;
-		side_dist_y = (map_y + 1.0f - pos_y) * delta_dist_y;
-	}
-	hit = 0;
-	side = 0;
-	while (!hit)
-	{
-		if (side_dist_x < side_dist_y)
-		{
-			side_dist_x += delta_dist_x;
-			map_x += step_x;
-			side = 0;
-		}
-		else
-		{
-			side_dist_y += delta_dist_y;
-			map_y += step_y;
-			side = 1;
-		}
-		if (map_y < 0 || map_x < 0 || map_y >= game->map->map_size
-			|| map_x >= game->map->longest_line)
-		{
-			hit = 1;
-			break ;
-		}
-		if (game->map->rect_map[map_y][map_x] == '1')
-			hit = 1;
-	}
-	if (side == 0)
-		perp_dist = (map_x - pos_x + (1 - step_x) / 2.0f)
-			/ (ray_dir_x == 0.0f ? 1e-6f : ray_dir_x);
-	else
-		perp_dist = (map_y - pos_y + (1 - step_y) / 2.0f)
-			/ (ray_dir_y == 0.0f ? 1e-6f : ray_dir_y);
+	init_dda(&dda, player, angle);
+	calculate_step_and_side_dist(&dda);
+	perform_dda(&dda, game);
+	perp_dist = calculate_perp_distance(&dda);
 	info.dist = perp_dist * BLOCK;
-	if (side == 0)
-		hit_world_x = player->y + perp_dist * BLOCK * ray_dir_y;
+	if (dda.side == 0)
+		hit_world_x = player->y + perp_dist * BLOCK * dda.ray_dir_y;
 	else
-		hit_world_x = player->x + perp_dist * BLOCK * ray_dir_x;
+		hit_world_x = player->x + perp_dist * BLOCK * dda.ray_dir_x;
 	wall_pos = fmodf(hit_world_x, (float)BLOCK);
 	if (wall_pos < 0)
 		wall_pos += BLOCK;
-	if (side == 0)
-	{
-		if (ray_dir_x > 0)
-			info.texture = &game->map->we_img;
-		else
-			info.texture = &game->map->ea_img;
-	}
-	else
-	{
-		if (ray_dir_y > 0)
-			info.texture = &game->map->no_img;
-		else
-			info.texture = &game->map->so_img;
-	}
+	determine_texture(&info, &dda, game);
 	info.wall_x = wall_pos;
 	return (info);
 }
@@ -217,18 +242,16 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
 	int			tex_x;
 	int			color;
 
-    // Ceiling
-    while (++y < start_y)
-        put_pixel(i, y, game->map->ceiling_color, game);
+	while (++y < start_y)
+		put_pixel(i, y, game->map->ceiling_color, game);
 
-    // Wall with texture
 	y = start_y - 1;
 	tex_x = (int)((ray.wall_x / BLOCK) * ray.texture->width);
 	if (tex_x < 0)
 		tex_x = 0;
 	if (tex_x >= ray.texture->width)
 		tex_x = ray.texture->width - 1;
-    while (++y < end_y && ray.texture)
+	while (++y < end_y && ray.texture)
 	{
 		tex_y = ((y - start_y) * ray.texture->height) / height;
 		if (tex_y < 0)
@@ -238,29 +261,27 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
 		color = get_texture_pixel(ray.texture, tex_x, tex_y);
 		put_pixel(i, y, color, game);
 	}
-
-    // Floor
-    while (y < HEIGHT)
-        put_pixel(i, y++, game->map->floor_color, game);
+	while (y < HEIGHT)
+		put_pixel(i, y++, game->map->floor_color, game);
 }
 
 int draw_loop(t_game *game)
 {
-    t_player *player = &game->player;
-    float fraction = PI / 3 / WIDTH;
-    float start_x = player->angle - PI / 6;
-    int i = 0;
+	t_player	*player = &game->player;
+	float		fraction = PI / 3 / WIDTH;
+	float		start_x = player->angle - PI / 6;
+	int			i = 0;
 
-    move_player(player, game);
-    clear_image(game);
+	move_player(player, game);
+	clear_image(game);
 
-    while (i < WIDTH)
-    {
-        draw_line(player, game, start_x, i);
-        start_x += fraction;
-        i++;
-    }
-    mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
-    return 0;
+	while (i < WIDTH)
+	{
+		draw_line(player, game, start_x, i);
+		start_x += fraction;
+		i++;
+	}
+	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
+	return (0);
 }
 

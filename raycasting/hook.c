@@ -7,10 +7,24 @@ int	handle_destroy(t_game *game)
 	exit(0);
 }
 
+void	destroy_textures(t_game *game)
+{
+	if (game->map->no_img.img)
+		mlx_destroy_image(game->mlx, game->map->no_img.img);
+	if (game->map->ea_img.img)
+		mlx_destroy_image(game->mlx, game->map->ea_img.img);
+	if (game->map->we_img.img)
+		mlx_destroy_image(game->mlx, game->map->we_img.img);
+	if (game->map->so_img.img)
+		mlx_destroy_image(game->mlx, game->map->so_img.img);
+}
+
 void	free_game(t_game *game)
 {
 	if (!game)
 		return ;
+	if (game->map && game->mlx)
+		destroy_textures(game);
 	if (game->img)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->window)
@@ -30,6 +44,8 @@ void	close_game(t_game *game)
 {
 	if (!game)
 		exit(0);
+	if (game->map && game->mlx)
+		destroy_textures(game);
 	if (game->img)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->window)
