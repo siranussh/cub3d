@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:43:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 13:08:24 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:01:42 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_map	*init_map(void)
 	return (map);
 }
 
- void	init_dda(t_dda *dda, t_player *player, float angle)
+void	init_dda(t_dda *dda, t_player *player, float angle)
 {
 	dda->pos_x = player->x / (float)BLOCK;
 	dda->pos_y = player->y / (float)BLOCK;
@@ -56,9 +56,9 @@ t_map	*init_map(void)
 		dda->delta_dist_y = fabsf(1.0f / dda->ray_dir_y);
 }
 
-t_game *init_game(void)
+t_game	*init_game(void)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
@@ -79,7 +79,7 @@ void	init_mlx(t_game *game)
 	if (!game->img)
 		free_and_print_error(game, "mlx_new_image failed\n");
 	game->data = mlx_get_data_addr(
-		game->img, &game->bpp, &game->size_line, &game->endian);
+			game->img, &game->bpp, &game->size_line, &game->endian);
 	if (!game->data)
 		free_and_print_error(game, "mlx_get_data_addr failed\n");
 	load_textures(game);

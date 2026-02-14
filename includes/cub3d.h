@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 13:08:54 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:58:41 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define HEIGHT 720
 # define BLOCK 64
 
-//linux
 # define W 119
 # define A 97
 # define S 115
@@ -26,13 +25,6 @@
 # define RIGHT 65363
 # define CLOSE 65307
 
-//macos
-// # define W 13
-// # define A 0
-// # define S 1
-// # define D 2
-
-// # define PI 3.14159265359 //for angle calculations
 # define PI 3.1415926f
 
 # include "../libft/libft.h"
@@ -59,23 +51,23 @@ typedef struct s_texture
 
 typedef struct s_map
 {
-	char		*no_tx;// no texture path
-	char		*ea_tx;// ea texture path
-	char		*we_tx;// we texture path
-	char		*so_tx;// so texture path
+	char		*no_tx;
+	char		*ea_tx;
+	char		*we_tx;
+	char		*so_tx;
 	t_texture	no_img;
 	t_texture	ea_img;
 	t_texture	we_img;
 	t_texture	so_img;
 	int			floor_color;
 	int			ceiling_color;
-	char		*param_line;// textures, colors line
-	char		*map_line;// containing only map
-	char		**params;// textures, colors
-	char		**map;// map for Siran
+	char		*param_line;
+	char		*map_line;
+	char		**params;
+	char		**map;
 	char		**rect_map;
-	int			map_size;// height
-	int			longest_line;// width
+	int			map_size;
+	int			longest_line;
 	int			is_open;
 	int			player_x;
 	int			player_y;
@@ -107,7 +99,7 @@ typedef struct s_game
 	t_map		*map;
 }	t_game;
 
-typedef struct s_ray_info// newwww
+typedef struct s_ray_info
 {
 	float		dist;
 	t_texture	*texture;
@@ -147,13 +139,13 @@ void	check_if_file_is_empty(char *line, t_game *game, int fd);
 int		texture_path_len(char *str);
 char	*get_texture_path(char *map);
 int		if_tx_path_valid(char *path);
+void	load_textures(t_game *game);
 
 // get_textures.c
 void	get_no_texture(t_game *game, char *map_line);
 void	get_ea_texture(t_game *game, char *map_line);
 void	get_we_texture(t_game *game, char *map_line);
 void	get_so_texture(t_game *game, char *map_line);
-void	load_textures(t_game *game);
 int		get_texture_pixel(t_texture *texture, int x, int y);
 
 // get_color_utils.c

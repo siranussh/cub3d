@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/02 13:51:30 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/11 22:22:03 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/14 13:52:25 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/14 13:56:46 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -79,37 +79,10 @@ void	get_so_texture(t_game *game, char *map_line)
 		print_error("Error: Invalid SO texture\n");
 	}
 }
-static void	load_texture(t_game *game, t_texture *texture, char *path)
-{
-	if (!path)
-		return ;
-	texture->img = mlx_xpm_file_to_image(game->mlx, path,
-		&texture->width, &texture->height);
-	if (!texture->img)
-	{
-		free_game(game);
-		print_error("Error: Failed to load texture\n");
-	}
-	texture->data = mlx_get_data_addr(texture->img, &texture->bpp,
-		&texture->size_line, &texture->endian);
-	if (!texture->data)
-	{
-		free_game(game);
-		print_error("Error: Failed to get texture data\n");
-	}
-}
-
-void	load_textures(t_game *game)
-{
-	load_texture(game, &game->map->no_img, game->map->no_tx);
-	load_texture(game, &game->map->ea_img, game->map->ea_tx);
-	load_texture(game, &game->map->we_img, game->map->we_tx);
-	load_texture(game, &game->map->so_img, game->map->so_tx);
-}
 
 int	get_texture_pixel(t_texture *texture, int x, int y)
 {
-	int		index;
+	int				index;
 	unsigned int	pixel;
 
 	if (x < 0 || y < 0 || x >= texture->width || y >= texture->height)

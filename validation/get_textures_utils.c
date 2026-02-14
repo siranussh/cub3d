@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_textures_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavagya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/02 13:51:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/11 22:17:32 by anavagya         ###   ########.fr       */
+/*   Created: 2026/02/14 13:53:20 by anavagya          #+#    #+#             */
+/*   Updated: 2026/02/14 13:56:56 by anavagya         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -73,4 +73,32 @@ int	if_tx_path_valid(char *path)
 		return (0);
 	close(fd);
 	return (1);
+}
+
+static void	load_texture(t_game *game, t_texture *texture, char *path)
+{
+	if (!path)
+		return ;
+	texture->img = mlx_xpm_file_to_image(game->mlx, path,
+			&texture->width, &texture->height);
+	if (!texture->img)
+	{
+		free_game(game);
+		print_error("Error: Failed to load texture\n");
+	}
+	texture->data = mlx_get_data_addr(texture->img, &texture->bpp,
+			&texture->size_line, &texture->endian);
+	if (!texture->data)
+	{
+		free_game(game);
+		print_error("Error: Failed to get texture data\n");
+	}
+}
+
+void	load_textures(t_game *game)
+{
+	load_texture(game, &game->map->no_img, game->map->no_tx);
+	load_texture(game, &game->map->ea_img, game->map->ea_tx);
+	load_texture(game, &game->map->we_img, game->map->we_tx);
+	load_texture(game, &game->map->so_img, game->map->so_tx);
 }
