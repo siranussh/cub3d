@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:11:04 by sihakoby          #+#    #+#             */
-/*   Updated: 2026/02/14 14:37:47 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:45:23 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 void	draw_map(t_game *game)
 {
 	char	**map;
-	int		color;
 	int		x;
 	int		y;
 
 	y = 0;
-	color = 0x0000FF;
 	map = game->map->rect_map;
 	while (y < game->map->map_size)
 	{
