@@ -28,6 +28,8 @@ SRC_RAYCASTING = raycasting.c \
 				player.c \
 				player_movement.c \
 				hook.c \
+				draw_utils.c \
+				dda.c \
 
 VALID_DIR = validation
 RAYCASTING_DIR = raycasting

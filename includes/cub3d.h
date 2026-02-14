@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/13 18:13:40 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:34:31 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,16 @@ int		handle_destroy(t_game *game);
 void	free_game(t_game *game);
 void	close_game(t_game *game);
 
+//dda.c
+t_ray_info	cast_ray(t_player *player, t_game *game, float angle);
+
+//draw_utils
+void	put_pixel(int x, int y, int color, t_game *game);
+void	clear_image(t_game *game);
+bool	touch(float px, float py, t_game *game);
+float	distance(float x, float y);
+float	fixed_dist(float x1, float y1, float x2, float y2, t_game *game);
+
 /********************************************************/
 
 // utils.c
@@ -241,6 +251,9 @@ char	*ft_strncpy(char *dest, char *src, int n);
 
 // init_structs.c
 t_map	*init_map(void);
+void	init_dda(t_dda *dda, t_player *player, float angle);
+t_game	*init_game(void);
+void	init_mlx(t_game *game);
 
 // free.c
 void	ft_free(char **str);
