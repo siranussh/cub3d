@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 13:11:04 by sihakoby          #+#    #+#             */
+/*   Updated: 2026/02/14 13:11:21 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-void draw_map(t_game *game)
+void	draw_map(t_game *game)
 {
 	char	**map;
 	int		color;
@@ -23,9 +35,7 @@ void draw_map(t_game *game)
 	}
 }
 
-
-
-void draw_square(int x, int y, int size, int color, t_game *game)
+void	draw_square(int x, int y, int size, int color, t_game *game)
 {
 	int	i;
 	int	j;
@@ -43,7 +53,7 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 	}
 }
 
-void draw_line(t_player *player, t_game *game, float angle, int i)
+void	draw_line(t_player *player, t_game *game, float angle, int i)
 {
 	t_ray_info	ray;
 	int			height;
@@ -60,7 +70,7 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
 	draw_floor(i, end_y, game);
 }
 
-int draw_loop(t_game *game)
+int	draw_loop(t_game *game)
 {
 	t_player	*player;
 	float		fraction;
@@ -82,4 +92,3 @@ int draw_loop(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->window, game->img, 0, 0);
 	return (0);
 }
-

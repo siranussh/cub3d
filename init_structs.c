@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:43:39 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 10:26:39 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:08:24 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,17 @@ void	init_mlx(t_game *game)
 	if (!game->data)
 		free_and_print_error(game, "mlx_get_data_addr failed\n");
 	load_textures(game);
+}
+
+void	init_player(t_player *player)
+{
+	player->x = -1;
+	player->y = -1;
+	player->angle = 0;
+	player->key_up = false;
+	player->key_left = false;
+	player->key_right = false;
+	player->key_down = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
 }

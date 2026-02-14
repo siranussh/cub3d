@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 13:10:45 by sihakoby          #+#    #+#             */
+/*   Updated: 2026/02/14 13:11:39 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-void put_pixel(int x, int y, int color, t_game *game)
+void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
 
@@ -17,13 +29,13 @@ bool	touch(float px, float py, t_game *game)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	if (x < 0 || y < 0 || y >= game->map->map_size || x >= game->map->longest_line)
+	if (x < 0 || y < 0 || y >= game->map->map_size
+		|| x >= game->map->longest_line)
 		return (true);
 	if (game->map->rect_map[y][x] == '1')
 		return (true);
 	return (false);
 }
-
 
 int	get_texture_x(float wall_x, t_ray_info *ray)
 {

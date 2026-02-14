@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 12:27:29 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:08:54 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ void	validation(int argc, char **argv, t_game *game);
 
 /********************* RAYCASTING ***********************/
 //player.c
-void	init_player(t_player *player);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	move_player(t_player *player, t_game *game);
@@ -219,8 +218,6 @@ void	normalize_angle(float *angle);
 //raycasting.c
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_square(int x, int y, int size, int color, t_game *game);
-t_game	*init_game(void);
-void	init_mlx(t_game *game);
 int		draw_loop(t_game *game);
 bool	touch(float px, float py, t_game *game);
 
@@ -257,6 +254,7 @@ t_map	*init_map(void);
 void	init_dda(t_dda *dda, t_player *player, float angle);
 t_game	*init_game(void);
 void	init_mlx(t_game *game);
+void	init_player(t_player *player);
 
 // free.c
 void	ft_free(char **str);

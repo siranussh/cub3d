@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 13:10:57 by sihakoby          #+#    #+#             */
+/*   Updated: 2026/02/14 13:11:52 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-static void	move_forward_backward(t_player *player, float *move_x, float *move_y)
+static void	move_forward_backward(t_player *player, float *move_x,
+		float *move_y)
 {
 	float	cos_angle;
 	float	sin_angle;
@@ -54,7 +67,6 @@ static void	get_movement_vector(t_player *player, float *move_x, float *move_y)
 {
 	*move_x = 0;
 	*move_y = 0;
-
 	move_forward_backward(player, move_x, move_y);
 	move_strafe(player, move_x, move_y);
 	normalize_vector(move_x, move_y);

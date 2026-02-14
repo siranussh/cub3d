@@ -1,5 +1,16 @@
-#include "../includes/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 13:10:36 by sihakoby          #+#    #+#             */
+/*   Updated: 2026/02/14 13:11:32 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/cub3d.h"
 
 static void	calculate_step_and_side_dist(t_dda *dda)
 {
@@ -11,8 +22,7 @@ static void	calculate_step_and_side_dist(t_dda *dda)
 	else
 	{
 		dda->step_x = 1;
-		dda->side_dist_x = (dda->map_x + 1.0f - dda->pos_x)
-			* dda->delta_dist_x;
+		dda->side_dist_x = (dda->map_x + 1.0f - dda->pos_x) * dda->delta_dist_x;
 	}
 	if (dda->ray_dir_y < 0)
 	{
@@ -22,8 +32,7 @@ static void	calculate_step_and_side_dist(t_dda *dda)
 	else
 	{
 		dda->step_y = 1;
-		dda->side_dist_y = (dda->map_y + 1.0f - dda->pos_y)
-			* dda->delta_dist_y;
+		dda->side_dist_y = (dda->map_y + 1.0f - dda->pos_y) * dda->delta_dist_y;
 	}
 }
 
@@ -46,7 +55,8 @@ static int	perform_dda(t_dda *dda, t_game *game)
 			dda->map_y += dda->step_y;
 			dda->side = 1;
 		}
-		if (dda->map_y < 0 || dda->map_x < 0 || dda->map_y >= game->map->map_size
+		if (dda->map_y < 0 || dda->map_x < 0
+			|| dda->map_y >= game->map->map_size
 			|| dda->map_x >= game->map->longest_line)
 			return (1);
 		if (game->map->rect_map[dda->map_y][dda->map_x] == '1')
@@ -92,11 +102,11 @@ static void	determine_texture(t_ray_info *info, t_dda *dda, t_game *game)
 
 t_ray_info	cast_ray(t_player *player, t_game *game, float angle)
 {
-	t_ray_info	info;
-	t_dda		dda;
-	float		perp_dist;
-	float		hit_world_x;
-	float		wall_pos;
+	t_ray_info info;
+	t_dda dda;
+	float perp_dist;
+	float hit_world_x;
+	float wall_pos;
 
 	init_dda(&dda, player, angle);
 	calculate_step_and_side_dist(&dda);

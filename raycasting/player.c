@@ -1,17 +1,16 @@
-#include "../includes/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 13:11:01 by sihakoby          #+#    #+#             */
+/*   Updated: 2026/02/14 13:11:26 by sihakoby         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	init_player(t_player *player)
-{
-	player->x = -1;
-	player->y = -1;
-	player->angle = 0;
-	player->key_up = false;
-	player->key_left = false;
-	player->key_right = false;
-	player->key_down = false;
-	player->left_rotate = false;
-	player->right_rotate = false;
-}
+#include "../includes/cub3d.h"
 
 int	key_press(int keycode, t_game *game)
 {
@@ -66,7 +65,7 @@ void	update_player_rotation(t_player *player, float angle_speed)
 	normalize_angle(&player->angle);
 }
 
-void move_player(t_player *player, t_game *game)
+void	move_player(t_player *player, t_game *game)
 {
 	int		speed;
 	float	angle_speed;
