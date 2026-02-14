@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:10:49 by sihakoby          #+#    #+#             */
-/*   Updated: 2026/02/14 13:11:44 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:30:25 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_wall(int column, int start_y, int end_y, t_ray_info *ray)
 
 void	draw_floor(int column, int end_y, t_game *game)
 {
-	int y;
+	int	y;
 
 	y = end_y - 1;
 	while (++y < HEIGHT)

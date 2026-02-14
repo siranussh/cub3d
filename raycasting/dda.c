@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:10:36 by sihakoby          #+#    #+#             */
-/*   Updated: 2026/02/14 13:11:32 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:34:47 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,26 @@ static int	perform_dda(t_dda *dda, t_game *game)
 static float	calculate_perp_distance(t_dda *dda)
 {
 	float	perp_dist;
+	float	divisor_x;
+	float	divisor_y;
 
 	if (dda->side == 0)
 	{
+		if (dda->ray_dir_x == 0.0f)
+			divisor_x = 1e-6f;
+		else
+			divisor_x = dda->ray_dir_x;
 		perp_dist = (dda->map_x - dda->pos_x + (1 - dda->step_x) / 2.0f)
-			/ (dda->ray_dir_x == 0.0f ? 1e-6f : dda->ray_dir_x);
+			/ divisor_x;
 	}
 	else
 	{
+		if (dda->ray_dir_y == 0.0f)
+			divisor_y = 1e-6f;
+		else
+			divisor_y = dda->ray_dir_y;
 		perp_dist = (dda->map_y - dda->pos_y + (1 - dda->step_y) / 2.0f)
-			/ (dda->ray_dir_y == 0.0f ? 1e-6f : dda->ray_dir_y);
+			/ divisor_y;
 	}
 	return (perp_dist);
 }
@@ -102,11 +112,11 @@ static void	determine_texture(t_ray_info *info, t_dda *dda, t_game *game)
 
 t_ray_info	cast_ray(t_player *player, t_game *game, float angle)
 {
-	t_ray_info info;
-	t_dda dda;
-	float perp_dist;
-	float hit_world_x;
-	float wall_pos;
+	t_ray_info	info;
+	t_dda		dda;
+	float		perp_dist;
+	float		hit_world_x;
+	float		wall_pos;
 
 	init_dda(&dda, player, angle);
 	calculate_step_and_side_dist(&dda);
@@ -122,5 +132,6 @@ t_ray_info	cast_ray(t_player *player, t_game *game, float angle)
 		wall_pos += BLOCK;
 	determine_texture(&info, &dda, game);
 	info.wall_x = wall_pos;
+	info.game = game;
 	return (info);
 }
