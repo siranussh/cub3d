@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:11:04 by sihakoby          #+#    #+#             */
-/*   Updated: 2026/02/14 13:42:48 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:37:47 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	draw_map(t_game *game)
 		while (x < game->map->longest_line)
 		{
 			if (map[y][x] == '1')
-				draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
+				draw_square(x * BLOCK, y * BLOCK, BLOCK, game);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	draw_square(int x, int y, int size, int color, t_game *game)
+void	draw_square(int x, int y, int size, t_game *game)
 {
 	int	i;
 	int	j;
@@ -46,7 +46,7 @@ void	draw_square(int x, int y, int size, int color, t_game *game)
 		j = 0;
 		while (j < size)
 		{
-			put_pixel(x + i, y + j, color, game);
+			put_pixel(x + i, y + j, 0x0000FF, game);
 			j++;
 		}
 		i++;
