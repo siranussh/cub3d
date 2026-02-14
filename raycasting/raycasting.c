@@ -81,14 +81,17 @@ void draw_line(t_player *player, t_game *game, float angle, int i)
 
 int draw_loop(t_game *game)
 {
-	t_player	*player = &game->player;
-	float		fraction = PI / 3 / WIDTH;
-	float		start_x = player->angle - PI / 6;
-	int			i = 0;
+	t_player	*player;
+	float		fraction;
+	float		start_x;
+	int			i;
 
+	fraction = PI / 3 / WIDTH;
+	player = &game->player;
+	start_x = player->angle - PI / 6;
+	i = 0;
 	move_player(player, game);
-	clear_image(game);
-
+	ft_bzero(game->data, HEIGHT * game->size_line);
 	while (i < WIDTH)
 	{
 		draw_line(player, game, start_x, i);
