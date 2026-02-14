@@ -23,3 +23,28 @@ bool	touch(float px, float py, t_game *game)
 		return (true);
 	return (false);
 }
+
+
+int	get_texture_x(float wall_x, t_ray_info *ray)
+{
+	int	tex_x;
+
+	tex_x = (int)((wall_x / BLOCK) * ray->texture->width);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= ray->texture->width)
+		tex_x = ray->texture->width - 1;
+	return (tex_x);
+}
+
+int	get_texture_y(int y, int start_y, int height, t_ray_info *ray)
+{
+	int	tex_y;
+
+	tex_y = ((y - start_y) * ray->texture->height) / height;
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y >= ray->texture->height)
+		tex_y = ray->texture->height - 1;
+	return (tex_y);
+}

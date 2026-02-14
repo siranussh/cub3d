@@ -27,8 +27,9 @@ SRC_VALID = read_map.c \
 SRC_RAYCASTING = raycasting.c \
 				player.c \
 				player_movement.c \
-				hook.c \
+				end_game.c \
 				draw_utils.c \
+				draw.c \
 				dda.c \
 
 VALID_DIR = validation

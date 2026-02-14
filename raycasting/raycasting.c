@@ -43,40 +43,21 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 	}
 }
 
-
-
 void draw_line(t_player *player, t_game *game, float angle, int i)
 {
-    t_ray_info	ray = cast_ray(player, game, angle);
-	int			height = (BLOCK / ray.dist) * (HEIGHT / 2);
-	int			start_y = (HEIGHT - height) / 2;
-	int			end_y = start_y + height;
-	int			y = start_y - 1;
-	int			tex_y;
-	int			tex_x;
-	int			color;
+	t_ray_info	ray;
+	int			height;
+	int			start_y;
+	int			end_y;
 
-	while (++y < start_y)
-		put_pixel(i, y, game->map->ceiling_color, game);
-
-	y = start_y - 1;
-	tex_x = (int)((ray.wall_x / BLOCK) * ray.texture->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= ray.texture->width)
-		tex_x = ray.texture->width - 1;
-	while (++y < end_y && ray.texture)
-	{
-		tex_y = ((y - start_y) * ray.texture->height) / height;
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= ray.texture->height)
-			tex_y = ray.texture->height - 1;
-		color = get_texture_pixel(ray.texture, tex_x, tex_y);
-		put_pixel(i, y, color, game);
-	}
-	while (y < HEIGHT)
-		put_pixel(i, y++, game->map->floor_color, game);
+	ray = cast_ray(player, game, angle);
+	ray.game = game;
+	height = (BLOCK / ray.dist) * (HEIGHT / 2);
+	start_y = (HEIGHT - height) / 2;
+	end_y = start_y + height;
+	draw_ceiling(i, start_y, game);
+	draw_wall(i, start_y, end_y, &ray);
+	draw_floor(i, end_y, game);
 }
 
 int draw_loop(t_game *game)

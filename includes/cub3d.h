@@ -6,7 +6,7 @@
 /*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 13:55:56 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 10:43:51 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/14 12:27:29 by sihakoby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_ray_info// newwww
 	float		dist;
 	t_texture	*texture;
 	float		wall_x;
+	t_game		*game;
 }	t_ray_info;
 
 typedef struct s_dda
@@ -237,7 +238,13 @@ t_ray_info	cast_ray(t_player *player, t_game *game, float angle);
 //draw_utils
 void	put_pixel(int x, int y, int color, t_game *game);
 bool	touch(float px, float py, t_game *game);
+int		get_texture_x(float wall_x, t_ray_info *ray);
+int		get_texture_y(int y, int start_y, int height, t_ray_info *ray);
 
+//draw.c
+void	draw_ceiling(int column, int start_y, t_game *game);
+void	draw_wall(int column, int start_y, int end_y, t_ray_info *ray);
+void	draw_floor(int column, int end_y, t_game *game);
 /********************************************************/
 
 // utils.c
