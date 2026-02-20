@@ -130,9 +130,6 @@ The validation system ensures:
 - [Trigonometry in Game Development](https://www.mathopenref.com/trig.html) - Essential trigonometric concepts
 - DDA (Digital Differential Analyzer) algorithm for line drawing
 
-**42 Project Resources:**
-- [42 cub3D Subject](https://cdn.intra.42.fr/pdf/pdf/960/cub3d.en.pdf) - Official project requirements
-
 ## Technical Choices
 
 ### Ray-Casting Implementation
@@ -158,5 +155,3 @@ Multi-layered validation approach:
 6. Flood fill for complete enclosure verification
 
 ---
-
-*For questions, issues, or contributions, please refer to the 42 School evaluation guidelines.*
