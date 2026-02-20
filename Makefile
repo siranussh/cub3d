@@ -45,7 +45,7 @@ OBJ = $(OBJ_VALID) $(OBJ_FILES) $(OBJ_RAYCASTING)
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 MLX_DIR = mlx
 MLX_FLAGS = -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
@@ -55,6 +55,8 @@ INC = -I ./includes -I . -I ./raycasting -I ./libft -I ./mlx
 LIBFT = ./libft/libft.a
 
 all : $(NAME)
+
+bonus : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(INC) $(OBJ) $(MLX_FLAGS) -L ./libft -lft -o $(NAME)

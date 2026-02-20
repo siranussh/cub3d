@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:52:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/14 13:53:00 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:10:00 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	if_valid_chars(char **map)
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W'
-				&& map[i][j] != ' ' && map[i][j] != '\t')
+				&& map[i][j] != ' ')
 				return (0);
 			j++;
 		}

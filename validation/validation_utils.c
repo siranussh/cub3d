@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 17:34:58 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 11:41:45 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:09:37 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ static int	is_map_line(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\t')
+	while (s[i] == ' ')
 		i++;
 	if (s[i] == '\0' || s[i] == '\n')
 		return (0);
 	while (s[i] && s[i] != '\n')
 	{
 		if (s[i] != '0' && s[i] != '1' && s[i] != 'N' && s[i] != 'S'
-			&& s[i] != 'E' && s[i] != 'W' && s[i] != ' ' && s[i] != '\t')
+			&& s[i] != 'E' && s[i] != 'W' && s[i] != ' ')
 			return (0);
 		i++;
 	}

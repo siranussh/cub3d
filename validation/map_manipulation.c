@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:53:19 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/03 12:04:59 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:09:43 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	fill_map_row(char *dst, char *src, int longest_line)
 	j = 0;
 	while (j < longest_line)
 	{
-		if (j >= row_len || src[j] == ' ' || src[j] == '\t')
+		if (j >= row_len || src[j] == ' ')
 			dst[j] = '6';
 		else
 			dst[j] = src[j];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihakoby <sihakoby@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 13:51:46 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/06 17:20:16 by sihakoby         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:09:49 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	flood_fill(t_map *m, char **map, int y, int x)
 		m->is_open = 1;
 		return ;
 	}
-	if (map[y][x] == '6' || map[y][x] == ' ' || map[y][x] == '\t')
+	if (map[y][x] == '6' || map[y][x] == ' ')
 	{
 		m->is_open = 1;
 		return ;
