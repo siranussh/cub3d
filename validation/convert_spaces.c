@@ -6,7 +6,7 @@
 /*   By: anavagya <anavgya@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:52:13 by anavagya          #+#    #+#             */
-/*   Updated: 2026/02/20 13:09:23 by anavagya         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:14:39 by anavagya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ static void	convert_unmarked_spaces(t_map *m, char **copy)
 		j = 0;
 		while (j < m->longest_line)
 		{
-			if ((m->rect_map[i][j] == '6' || m->rect_map[i][j] == ' ') && copy[i][j] != 'V')
+			if ((m->rect_map[i][j] == '6' || m->rect_map[i][j] == ' ')
+				&& copy[i][j] != 'V')
 				m->rect_map[i][j] = '0';
 			j++;
 		}
